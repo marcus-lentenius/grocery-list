@@ -1,10 +1,9 @@
 import React, {useContext} from "react";
 import {CheckBox} from "./style/CheckBox";
-import {ListItem} from "./style/ListItem";
-import {Row} from "./style/Row";
-import {Delete} from "../scripts/firebaseCRUD";
-import AppData from "./App";
-import {Text} from "./style/Text";
+import {Row} from "../shared/style/Row";
+import {Delete} from "../../scripts/firebaseCRUD";
+import AppData from "../App";
+import {Text} from "../shared/style/Text";
 
 const Item = ({item}) => {
     const Data = useContext(AppData)
@@ -12,7 +11,6 @@ const Item = ({item}) => {
     return (
         <Row groceryList>
             <CheckBox onClick={() => {
-                //todo async byta item till id?
                 Delete(item, 'items')
                 Data.fetchItems()
             }}/>

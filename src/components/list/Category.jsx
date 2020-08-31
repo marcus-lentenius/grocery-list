@@ -1,8 +1,12 @@
 import React, {useContext, useState} from "react";
-import AppData from "./App";
+import AppData from "../App";
 import Item from "./Item";
-import {CategoryHeadline} from "./style/CategoryHeadline";
-import {Text} from "./style/Text";
+import {Text} from "../shared/style/Text";
+import {getId} from "../../scripts/idGenerator";
+
+/**
+ * Groups all items under respective category and function for hiding/showing each category
+ */
 
 const Category = ({category}) => {
     const Data = useContext(AppData)
@@ -16,8 +20,7 @@ const Category = ({category}) => {
         <>
             {
                 Data.items.filter(item => item.category === category).map(item => (
-                        //todo >item.name<
-                        <Item key={'category_' + item.name + Math.random()} item={item}/>
+                        <Item key={'category_' + item.name + getId()} item={item}/>
                     )
                 )
             }

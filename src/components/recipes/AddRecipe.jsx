@@ -1,13 +1,18 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {Row} from "../style/Row";
-import {Button} from "../style/Button";
-import {Input} from "../style/Input";
+import {Row} from "../shared/style/Row";
+import {Button} from "../shared/style/Button";
+import {Input} from "../shared/style/Input";
 import {CreateRecipe} from "../../scripts/firebaseCRUD";
 import AddIngredient from "./AddIngredient";
 import Ingredient from "./Ingredient";
 import AppData from "../App";
+import {getId} from "../../scripts/idGenerator";
+import {caseString} from "../../scripts/formatText";
 
-//todo single purpose
+/**
+ * Renders form for adding recipe
+ */
+
 const AddRecipe = () => {
     const Data = useContext(AppData);
     const [ingredients, setIngredients] = useState([])
@@ -16,11 +21,10 @@ const AddRecipe = () => {
     const amountRef = useRef(null);
     const nameRef = useRef(null);
 
-    //todo rename
-    const recipeObj = {
+    const recipe = {
         name: '',
         ingredients: ingredients,
-        id: Math.round(Math.random() * (99999999 - 11111111) + 11111111)
+        id: getId()
     }
 
     useEffect(() => {
@@ -28,22 +32,19 @@ const AddRecipe = () => {
     }, [ingredients])
 
 
-    //todo caseStr
-
     const handleAddIngredient = () => {
         let ingredient = ingredientRef.current
         let amount = amountRef.current
 
-        //todo 9+
-        const reg = new RegExp('^[0-9]$');
+        const reg = new RegExp('^[0-9]*$');
 
         if (amount.value !== '' && !reg.test(amount.value)) {
+            // todo error message
             console.log('fel eller inget nummer amount')
         } else if (ingredient.value === '') {
             console.log('inget namn')
         } else {
             ingredients.push({
-                //todo rename -> name
                 name: ingredient.value,
                 amount: parseInt(amount.value === '' ? 1 : amount.value),
             });
@@ -56,11 +57,11 @@ const AddRecipe = () => {
 
     const handleSubmit = async () => {
         if (nameRef.current.value) {
-            recipeObj.name = nameRef.current.value;
+            recipe.name = nameRef.current.value;
         } else {
             console.log('inget namn på recept')
         }
-        await CreateRecipe(recipeObj);
+        await CreateRecipe(recipe);
         Data.fetchRecipes()
 
         setIngredients([])
@@ -76,7 +77,7 @@ const AddRecipe = () => {
                        ref={nameRef}
                        id={"name"}
                        onChange={(e) => {
-                           recipeObj.name = e.target.value
+                           recipe.name = e.target.value
                        }}
                        placeholder={"Namn"}/>
             </Row>

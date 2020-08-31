@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import {caseString} from "../scripts/FormatText";
-import AppData from "./App";
+import {caseString} from "../../scripts/formatText";
+import AppData from "../App";
 import Category from "./Category";
 
 
@@ -11,6 +11,10 @@ const List = () => {
     const [category, setCategory] = useState([])
     const [showList, setShowList] = useState(false)
 
+    //todo optimize
+
+    // Awaits preload then renders the list when done
+    // Purpose is for the sorting order to catch up with rendering so that the categories are shown chronologically
     useEffect(()=>{
         if (Data.items.length !== 0 && Data.sorting_order.length !== 0 && isLoading) {
             setIsLoading(false);
@@ -28,7 +32,7 @@ const List = () => {
             }
 
             setCategory(newCategory)
-            //todo fixa till..
+
             if (category.length !== 0) {
                 setShowList(true)
             }
