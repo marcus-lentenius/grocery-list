@@ -2,6 +2,15 @@
 import {caseString} from "./FormatText";
 import {CreateNewItem} from "./firebaseCRUD";
 
+/**
+ * Cross references the item name with a list of categories and updates category prop of item
+
+ * @param name
+ * @param referenceList
+ * @returns {string}
+ * @constructor
+ */
+
 export const CategorizeItem = (name, referenceList) => {
     let cat = '';
     let exists = false
@@ -19,6 +28,7 @@ export const CategorizeItem = (name, referenceList) => {
         }
     })
 
+//todo check up on this
     if (!exists) {
         CreateNewItem(name)
     }

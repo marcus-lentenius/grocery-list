@@ -11,6 +11,11 @@ const List = () => {
     const [category, setCategory] = useState([])
     const [showList, setShowList] = useState(false)
 
+    //todo optimize
+    // reorder the flow of data reading from firebase
+
+    // Awaits preload then renders the list when done
+    // Purpose is for the sorting order to catch up with rendering so that the categories are shown chronologically
     useEffect(()=>{
         if (Data.items.length !== 0 && Data.sorting_order.length !== 0 && isLoading) {
             setIsLoading(false);

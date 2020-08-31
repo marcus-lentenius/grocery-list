@@ -1,11 +1,19 @@
 import React, {useContext} from "react";
 import AppData from "./App";
 import NewItemOptions from "./NewItemOptions";
-import {Create, Delete, SetCategoryOnItem} from "../scripts/firebaseCRUD";
+import {Delete, SetCategoryOnItem} from "../scripts/firebaseCRUD";
 import {Row} from "./style/Row";
-import {Button, CustomButton} from "./style/Button";
+import {Button} from "./style/Button";
 import {caseString} from "../scripts/FormatText";
 import {Text} from "./style/Text";
+
+/**
+ *  Iterates a list of items that does not exist in the reference list document (in firebase)
+ *  Adds them to a document for new items (in firebase)
+ *  Rendering a list of the items with the option of adding the item to a category in the reference list document (in firebase)
+ */
+
+// todo add uppdate item
 
 const NewItems = () => {
     const Data = useContext(AppData);
@@ -14,6 +22,7 @@ const NewItems = () => {
             {
                 Data.new_items.map(item => {
                     return (
+
                         //todo refactor till ref
 
                         <form key={'new_items_form_' + item} onChange={e => {

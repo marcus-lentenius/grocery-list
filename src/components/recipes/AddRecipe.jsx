@@ -7,7 +7,12 @@ import AddIngredient from "./AddIngredient";
 import Ingredient from "./Ingredient";
 import AppData from "../App";
 
+/**
+ * Renders form for adding recipe
+ */
+
 //todo single purpose
+// error mesages
 const AddRecipe = () => {
     const Data = useContext(AppData);
     const [ingredients, setIngredients] = useState([])
@@ -20,6 +25,7 @@ const AddRecipe = () => {
     const recipeObj = {
         name: '',
         ingredients: ingredients,
+        // todo idGenerator()
         id: Math.round(Math.random() * (99999999 - 11111111) + 11111111)
     }
 
@@ -29,7 +35,6 @@ const AddRecipe = () => {
 
 
     //todo caseStr
-
     const handleAddIngredient = () => {
         let ingredient = ingredientRef.current
         let amount = amountRef.current
@@ -38,12 +43,12 @@ const AddRecipe = () => {
         const reg = new RegExp('^[0-9]$');
 
         if (amount.value !== '' && !reg.test(amount.value)) {
+            // todo error message
             console.log('fel eller inget nummer amount')
         } else if (ingredient.value === '') {
             console.log('inget namn')
         } else {
             ingredients.push({
-                //todo rename -> name
                 name: ingredient.value,
                 amount: parseInt(amount.value === '' ? 1 : amount.value),
             });

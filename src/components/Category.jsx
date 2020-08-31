@@ -4,6 +4,10 @@ import Item from "./Item";
 import {CategoryHeadline} from "./style/CategoryHeadline";
 import {Text} from "./style/Text";
 
+/**
+ * Groups all items under respective category and function for hiding/showing each category
+ */
+
 const Category = ({category}) => {
     const Data = useContext(AppData)
     const [showList, setShowList] = useState(true)
@@ -16,7 +20,7 @@ const Category = ({category}) => {
         <>
             {
                 Data.items.filter(item => item.category === category).map(item => (
-                        //todo >item.name<
+                        //todo <>item.name<> ?
                         <Item key={'category_' + item.name + Math.random()} item={item}/>
                     )
                 )

@@ -1,13 +1,14 @@
 import React from 'react';
 import {fireBase} from "../scripts/firebase";
-import {Create, Read, UpdateItem} from "../scripts/firebaseCRUD";
-import {TodoistDelete, TodoistRead} from "../scripts/todoistCRUD";
+import {Create, Read} from "../scripts/firebaseCRUD";
+import {TodoistRead} from "../scripts/todoistCRUD";
 import View from "./View";
 import {CategorizeItem} from "../scripts/categorizeItems";
 import {caseString} from "../scripts/FormatText";
 
 //todo error message
 // fixa mappstruktur
+// is this single purpose?
 
 const AppData = React.createContext(undefined)
 
@@ -31,6 +32,7 @@ export class App extends React.Component {
             .catch((e) => console.error(e));
     }
 
+    //todo reorder after need
     fetch = async () => {
         console.log('Preload initiated...')
         await this.fetchItems();
@@ -62,12 +64,6 @@ export class App extends React.Component {
         console.log('Recipes fetched')
     }
 
-    //todo används denna?
-    deleteItem = async (id) => {
-        await TodoistDelete(id)
-        await this.fetchItems();
-    }
-
     fetchReferenceList = async () => {
         console.log('Fetching Reference list...')
         const response = await Read('reference_list');
@@ -86,28 +82,6 @@ export class App extends React.Component {
         const response = await Read('new_items');
         this.setState({new_items: response.items})
         console.log('New items fetched')
-    }
-
-    render() {
-        return (
-            <AppData.Provider value={
-                {
-                    items: this.state.items,
-                    reference_list: this.state.reference_list,
-                    sorting_order: this.state.sorting_order,
-                    new_items: this.state.new_items,
-                    recipes: this.state.recipes,
-                    fetchItems: this.fetchItems.bind(this),
-                    deleteItem: this.deleteItem.bind(this),
-                    fetchReferenceList: this.fetchReferenceList.bind(this),
-                    importFromTodoist: this.importFromTodoist.bind(this),
-                    fetchRecipes: this.fetchRecipes.bind(this),
-                    updateData: this.updateData.bind(this)
-                }
-            }>
-                <View/>
-            </AppData.Provider>
-        );
     }
 
     //todo refactor
@@ -135,6 +109,36 @@ export class App extends React.Component {
         })
         await this.updateData()
     }
+
+    render() {
+        return (
+            <AppData.Provider value={
+                {
+                    items: this.state.items,
+                    reference_list: this.state.reference_list,
+                    sorting_order: this.state.sorting_order,
+                    new_items: this.state.new_items,
+                    recipes: this.state.recipes,
+                    fetchItems: this.fetchItems.bind(this),
+                    fetchReferenceList: this.fetchReferenceList.bind(this),
+                    importFromTodoist: this.importFromTodoist.bind(this),
+                    fetchRecipes: this.fetchRecipes.bind(this),
+                    updateData: this.updateData.bind(this)
+                }
+            }>
+                <View/>
+            </AppData.Provider>
+        );
+    }
 }
 
 export default AppData
+
+
+//todo används denna?
+// outdated
+
+// deleteItem = async (id) => {
+//     await TodoistDelete(id)
+//     await this.fetchItems();
+// }

@@ -3,8 +3,13 @@ import AppData from "./App";
 import {caseString} from "../scripts/FormatText";
 import {Select} from "./style/Select";
 
+/**
+ * Renders a select list with the names on the categories
+ */
+
 const NewItemOptions = () => {
     const Data = useContext(AppData);
+
     return (
         <Select>
             <option>Kategori</option>
