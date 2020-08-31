@@ -1,10 +1,11 @@
 import React, {useContext, useRef, useState} from "react";
-import {Button} from "./style/Button";
-import {Create} from "../scripts/firebaseCRUD";
-import {CategorizeItem} from "../scripts/categorizeItems";
-import {caseString} from "../scripts/FormatText";
-import AppData from "./App";
-import {Input} from "./style/Input";
+import {Button} from "../shared/style/Button";
+import {Create} from "../../scripts/firebaseCRUD";
+import {CategorizeItem} from "../../scripts/categorizeItems";
+import {caseString} from "../../scripts/formatText";
+import AppData from "../App";
+import {Input} from "../shared/style/Input";
+import {ContextData} from "../View";
 
 /**
  * Section for form to add new items to the list

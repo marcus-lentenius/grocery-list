@@ -1,8 +1,7 @@
 import React, {useContext, useState} from "react";
-import AppData from "./App";
+import AppData from "../App";
 import Item from "./Item";
-import {CategoryHeadline} from "./style/CategoryHeadline";
-import {Text} from "./style/Text";
+import {Text} from "../shared/style/Text";
 
 /**
  * Groups all items under respective category and function for hiding/showing each category

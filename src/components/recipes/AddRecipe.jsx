@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {Row} from "../style/Row";
-import {Button} from "../style/Button";
-import {Input} from "../style/Input";
+import {Row} from "../shared/style/Row";
+import {Button} from "../shared/style/Button";
+import {Input} from "../shared/style/Input";
 import {CreateRecipe} from "../../scripts/firebaseCRUD";
 import AddIngredient from "./AddIngredient";
 import Ingredient from "./Ingredient";

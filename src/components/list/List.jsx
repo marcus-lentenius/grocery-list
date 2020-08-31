@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import {caseString} from "../scripts/FormatText";
-import AppData from "./App";
+import {caseString} from "../../scripts/formatText";
+import AppData from "../App";
 import Category from "./Category";
 
 

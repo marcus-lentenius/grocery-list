@@ -1,5 +1,5 @@
 //todo name convention?
-import {caseString} from "./FormatText";
+import {caseString} from "./formatText";
 import {CreateNewItem} from "./firebaseCRUD";
 
 /**

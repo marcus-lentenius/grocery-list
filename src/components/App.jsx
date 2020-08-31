@@ -4,12 +4,15 @@ import {Create, Read} from "../scripts/firebaseCRUD";
 import {TodoistRead} from "../scripts/todoistCRUD";
 import View from "./View";
 import {CategorizeItem} from "../scripts/categorizeItems";
-import {caseString} from "../scripts/FormatText";
+import {caseString} from "../scripts/formatText";
+import Hob from "./shared/Hob";
 
 //todo error message
-// fixa mappstruktur
 // is this single purpose?
+// seperate index export files
 
+
+// todo refactor
 const AppData = React.createContext(undefined)
 
 export class App extends React.Component {
@@ -112,22 +115,24 @@ export class App extends React.Component {
 
     render() {
         return (
-            <AppData.Provider value={
-                {
-                    items: this.state.items,
-                    reference_list: this.state.reference_list,
-                    sorting_order: this.state.sorting_order,
-                    new_items: this.state.new_items,
-                    recipes: this.state.recipes,
-                    fetchItems: this.fetchItems.bind(this),
-                    fetchReferenceList: this.fetchReferenceList.bind(this),
-                    importFromTodoist: this.importFromTodoist.bind(this),
-                    fetchRecipes: this.fetchRecipes.bind(this),
-                    updateData: this.updateData.bind(this)
-                }
-            }>
-                <View/>
-            </AppData.Provider>
+            <>
+                <AppData.Provider value={
+                    {
+                        items: this.state.items,
+                        reference_list: this.state.reference_list,
+                        sorting_order: this.state.sorting_order,
+                        new_items: this.state.new_items,
+                        recipes: this.state.recipes,
+                        fetchItems: this.fetchItems.bind(this),
+                        fetchReferenceList: this.fetchReferenceList.bind(this),
+                        importFromTodoist: this.importFromTodoist.bind(this),
+                        fetchRecipes: this.fetchRecipes.bind(this),
+                        updateData: this.updateData.bind(this)
+                    }
+                }>
+                    <View/>
+                </AppData.Provider>
+            </>
         );
     }
 }
