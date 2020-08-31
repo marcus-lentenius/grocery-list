@@ -11,7 +11,6 @@ const Item = ({item}) => {
     return (
         <Row groceryList>
             <CheckBox onClick={() => {
-                //todo async byta item till id?
                 Delete(item, 'items')
                 Data.fetchItems()
             }}/>

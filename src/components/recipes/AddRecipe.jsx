@@ -6,13 +6,13 @@ import {CreateRecipe} from "../../scripts/firebaseCRUD";
 import AddIngredient from "./AddIngredient";
 import Ingredient from "./Ingredient";
 import AppData from "../App";
+import {getId} from "../../scripts/idGenerator";
+import {caseString} from "../../scripts/formatText";
 
 /**
  * Renders form for adding recipe
  */
 
-//todo single purpose
-// error mesages
 const AddRecipe = () => {
     const Data = useContext(AppData);
     const [ingredients, setIngredients] = useState([])
@@ -21,12 +21,10 @@ const AddRecipe = () => {
     const amountRef = useRef(null);
     const nameRef = useRef(null);
 
-    //todo rename
-    const recipeObj = {
+    const recipe = {
         name: '',
         ingredients: ingredients,
-        // todo idGenerator()
-        id: Math.round(Math.random() * (99999999 - 11111111) + 11111111)
+        id: getId()
     }
 
     useEffect(() => {
@@ -34,13 +32,11 @@ const AddRecipe = () => {
     }, [ingredients])
 
 
-    //todo caseStr
     const handleAddIngredient = () => {
         let ingredient = ingredientRef.current
         let amount = amountRef.current
 
-        //todo 9+
-        const reg = new RegExp('^[0-9]$');
+        const reg = new RegExp('^[0-9]*$');
 
         if (amount.value !== '' && !reg.test(amount.value)) {
             // todo error message
@@ -61,11 +57,11 @@ const AddRecipe = () => {
 
     const handleSubmit = async () => {
         if (nameRef.current.value) {
-            recipeObj.name = nameRef.current.value;
+            recipe.name = nameRef.current.value;
         } else {
             console.log('inget namn på recept')
         }
-        await CreateRecipe(recipeObj);
+        await CreateRecipe(recipe);
         Data.fetchRecipes()
 
         setIngredients([])
@@ -81,7 +77,7 @@ const AddRecipe = () => {
                        ref={nameRef}
                        id={"name"}
                        onChange={(e) => {
-                           recipeObj.name = e.target.value
+                           recipe.name = e.target.value
                        }}
                        placeholder={"Namn"}/>
             </Row>

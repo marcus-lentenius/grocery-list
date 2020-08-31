@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-//todo generiskt
 const item = `
     top: 14px;
     margin: 0 0 0 22px;
@@ -18,7 +17,6 @@ const headline = `
 const ingredient = `
 width: 360px;
 `
-
 const recipeHeadline = `
 font-size: 25px;
 text-align: center;

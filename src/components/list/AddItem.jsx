@@ -20,7 +20,6 @@ const AddItem = () => {
         const item = newItem.current;
 
         if (item.value !== '') {
-            //todo async?
             let category = CategorizeItem(item.value, Data.reference_list)
             Create(Data.items, {
                 name: caseString(item.value),
@@ -52,7 +51,7 @@ const AddItem = () => {
             }}>
                 -
             </Button>
-
+            {/*//todo add manually?*/}
             <Input addAmount value={amount} name="amount"/>
 
             <Button increaseAmount onClick={e => {

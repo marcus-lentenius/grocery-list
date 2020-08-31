@@ -1,5 +1,6 @@
 import {fireStore} from "./firebase";
 import * as firebase from "firebase";
+import {getId} from "./idGenerator";
 
 export const Delete = async (item, path) => {
     return fireStore.collection('grocery_list').doc(path).update({
@@ -7,22 +8,25 @@ export const Delete = async (item, path) => {
     }).catch((e) => console.error('delete error: ', e));
 }
 
+export const DeleteRecipe = async (recipe) => {
+    return fireStore.collection('grocery_list').doc('recipes').update({
+        recipes: firebase.firestore.FieldValue.arrayRemove(recipe)
+    }).catch((e) => console.error('delete error: ', e));
+}
 
 //todo ta bort array? param items
-export const Create = async (items, {
-    name,
-    category = '',
-    amount = 1,
-    id = Math.round(Math.random() * (99999999 - 11111111) + 11111111)
-}) => {
+export const Create = async (items,
+                             {
+                                 name,
+                                 category = '',
+                                 amount = 1
+                             }) => {
 
-    //todo gör en .set med en ny lista så duplicates får finnas
     const item = {
         name: name,
         category: category,
         amount: amount,
-        //todo flytta hit math.rand
-        id: id
+        id: getId()
     }
 
     console.log('Creating item ' + JSON.stringify(item));
@@ -41,37 +45,19 @@ export const Create = async (items, {
     }).catch((e) => console.error('write error: ', e));
 };
 
-//todo merge with Create()
 export const CreateRecipe = async (recipe) => {
-    //todo gör en .set med en ny lista så duplicates får finnas
-
     return fireStore.collection('grocery_list').doc('recipes').update({
         recipes: firebase.firestore.FieldValue.arrayUnion(recipe)
     }).catch((e) => console.error('write error: ', e));
-    // }, { merge: true }).catch((e) => console.error('write error: ', e));
-    // return fireStore.collection('grocery_list').doc('recipes').set({
-    //     recipes: recipe
-    //         // {
-    //         // name:
-    //         // ingredients: recipe.ingredients,
-    //         // id: recipe.id
-    //     // }
-    // }, { merge: true }).catch((e) => console.error('write error: ', e));
 };
 
-//todo merge with Create()
 export const CreateNewItem = async (name) => {
-    //todo gör en .set med en ny lista så duplicates får finnas
-
     return fireStore.collection('grocery_list').doc('new_items').update({
         items: firebase.firestore.FieldValue.arrayUnion(name)
     }).catch((e) => console.error('write error: ', e));
 };
 
-//todo merge with Create()
-export const SetCategoryOnItem = async (name, category) => {
-    //todo gör en .set med en ny lista så duplicates får finnas
-
+export const AddItemToReferenceList = async (name, category) => {
     return fireStore.collection('grocery_list').doc('reference_list').update({
         [category]: firebase.firestore.FieldValue.arrayUnion(name)
     }).catch((e) => console.error('write error: ', e));
@@ -84,48 +70,3 @@ export async function Read(storeDocument) {
         });
     })
 }
-
-/**
- * Currently not in use
- */
-
-// async function getReferenceList() {
-//     return new Promise(function (resolve) {
-//         fireStore.collection('reference_list2').onSnapshot(snapshot => {
-//             snapshot.docs.forEach(doc => {
-//                 resolve(doc.data())
-//             });
-//         });
-//     })
-// }
-//
-//
-// export async function getItems() {
-//     return new Promise(function (resolve) {
-//         fireStore.collection('grocery_list').onSnapshot(snapshot => {
-//             snapshot.docs.forEach(doc => {
-//                 resolve(doc.data().items)
-//             });
-//         });
-//     })
-// }
-//
-// async function getSortingOrder() {
-//     return new Promise(function (resolve) {
-//         fireStore.collection('sort_order').onSnapshot(snapshot => {
-//             snapshot.docs.forEach(doc => {
-//                 resolve(doc.data())
-//             });
-//         });
-//     })
-// }
-//
-// export async function ReadFromFireStore(path) {
-//     return new Promise(function (resolve) {
-//         fireStore.collection(path).onSnapshot(snapshot => {
-//             snapshot.docs.forEach(doc => {
-//                 resolve(doc.data())
-//             });
-//         });
-//     })
-// }

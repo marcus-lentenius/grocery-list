@@ -5,12 +5,14 @@ import {TodoistRead} from "../scripts/todoistCRUD";
 import View from "./View";
 import {CategorizeItem} from "../scripts/categorizeItems";
 import {caseString} from "../scripts/formatText";
-import Hob from "./shared/Hob";
 
 //todo error message
 // is this single purpose?
 // seperate index export files
 
+//fixme
+// add item suggestions
+// external context
 
 // todo refactor
 const AppData = React.createContext(undefined)
@@ -38,19 +40,22 @@ export class App extends React.Component {
     //todo reorder after need
     fetch = async () => {
         console.log('Preload initiated...')
-        await this.fetchItems();
-        await this.fetchReferenceList();
         await this.fetchSortOrder();
+        await this.fetchReferenceList();
+        await this.fetchItems();
         await this.fetchNewItems()
         await this.fetchRecipes()
         console.log('Preload complete')
     }
 
     updateData = async () => {
+        await this.fetchSortOrder();
+        await this.fetchReferenceList();
         await this.fetchItems();
         await this.fetchNewItems()
-        await this.fetchReferenceList();
+        await this.fetchRecipes()
     }
+
 
     fetchItems = async () => {
         console.log('Fetching items...')
