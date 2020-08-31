@@ -1,35 +1,35 @@
-import React, {useContext} from "react";
-import List from "./List";
+import React, {useContext} from 'react'
+import AppData from './App'
+import AddRecipe from './recipes/AddRecipe'
+import {Center} from './style/Center'
+import RecipeButtons from "./recipes/RecipeButton";
 import AddItem from "./AddItem";
-import {ListWrapper} from "./style/ListWrapper";
+import List from "./List";
 import {Button} from "./style/Button";
-import AppData from "./App";
 import NewItems from "./NewItems";
-import AddRecipe from "./recipes/AddRecipe";
-
-
 
 const View = () => {
     const Data = useContext(AppData)
 
-    const FullView =(
-        <>
-        <ListWrapper>
-            <AddItem/>
-            <List/>
-        </ListWrapper>
-    <Button onClick={async () => {
-        Data.importFromTodoist()
-    }}>import</Button>
-    <NewItems/>
-    </>
-    )
-
     return (
         <>
-            <AddRecipe/>
+            <Center>
+                <AddItem/>
+                <List/>
+                <Button onClick={async () => {
+                    Data.importFromTodoist()
+                }
+                }>
+                    Import from Todoist
+                </Button>
+                <NewItems/>
+            </Center>
+            <Center>
+                <AddRecipe/>
+            </Center>
+            <RecipeButtons/>
         </>
-    );
-};
+    )
+}
 
-export default View;
+export default View

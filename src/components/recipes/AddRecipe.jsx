@@ -1,13 +1,16 @@
-import React, {useEffect, useRef, useState} from "react";
-import {InputField} from "../style/InputField";
-import {ListRow} from "../style/ListRow";
-import {Ingredient} from "./style/Ingredient";
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {Row} from "../style/Row";
+import {Button} from "../style/Button";
+import {Input} from "../style/Input";
 import {CreateRecipe} from "../../scripts/firebaseCRUD";
+import AddIngredient from "./AddIngredient";
+import Ingredient from "./Ingredient";
+import AppData from "../App";
 
 //todo single purpose
 const AddRecipe = () => {
+    const Data = useContext(AppData);
     const [ingredients, setIngredients] = useState([])
-    const [name, setName] = useState('')
 
     const ingredientRef = useRef(null);
     const amountRef = useRef(null);
@@ -15,7 +18,7 @@ const AddRecipe = () => {
 
     //todo rename
     const recipeObj = {
-        name: name,
+        name: '',
         ingredients: ingredients,
         id: Math.round(Math.random() * (99999999 - 11111111) + 11111111)
     }
@@ -24,53 +27,14 @@ const AddRecipe = () => {
         ingredientRef.current.focus()
     }, [ingredients])
 
-    const Recipe = () => (
-        <>
-            {
-                ingredients.map(currentIngredient =>
-                    <ListRow>
-                        <Ingredient
-                            key={currentIngredient.id}>{currentIngredient.amount} {currentIngredient.ingredient}</Ingredient>
-                        <button onClick={() => {
-                            //todo oneline?
-                            let arr = []
-                            ingredients.forEach(ingredient => {
-                                if (ingredient !== currentIngredient) {
-                                    arr.push(ingredient)
-                                }
-                            });
-                            setIngredients(arr)
-                        }}>delete
-                        </button>
-                    </ListRow>
-                )
-            }
-        </>
-    )
-    const AddIngredient = () => {
-        return (
-            <ListRow>
-                <InputField ref={ingredientRef} id={"ingredient"} placeholder={"Ingredient"}
-                            onKeyPress={e => handleKeyPress(e)}/>
-                <InputField ref={amountRef} id={"amount"} placeholder={"Antal"} onKeyPress={e => handleKeyPress(e)}/>
-                <button onClick={e => {
-                    handleAddIngredient();
-                }}>Add
-                </button>
-            </ListRow>
-        )
-    }
 
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleAddIngredient()
-        }
-    }
+    //todo caseStr
 
-    const handleAddIngredient = (e) => {
+    const handleAddIngredient = () => {
         let ingredient = ingredientRef.current
         let amount = amountRef.current
 
+        //todo 9+
         const reg = new RegExp('^[0-9]$');
 
         if (amount.value !== '' && !reg.test(amount.value)) {
@@ -79,51 +43,63 @@ const AddRecipe = () => {
             console.log('inget namn')
         } else {
             ingredients.push({
-                ingredient: ingredient.value,
-                amount: amount.value === '' ? 1 : amount.value,
+                //todo rename -> name
+                name: ingredient.value,
+                amount: parseInt(amount.value === '' ? 1 : amount.value),
             });
 
             setIngredients([...ingredients]);
             ingredient.value = '';
             amount.value = '';
         }
-
     }
 
-    const handleSubmit = () => {
-        console.log(recipeObj)
-        CreateRecipe(recipeObj);
-        setName('')
+    const handleSubmit = async () => {
+        if (nameRef.current.value) {
+            recipeObj.name = nameRef.current.value;
+        } else {
+            console.log('inget namn på recept')
+        }
+        await CreateRecipe(recipeObj);
+        Data.fetchRecipes()
+
         setIngredients([])
         nameRef.current.value = '';
         ingredientRef.current.value = '';
         amountRef.current.value = '';
     }
 
-
     return (
         <>
-            <ListRow>
-                <InputField
-                    ref={nameRef}
-                    id={"name"}
-                    onChange={(e) => {
-                        setName(e.target.value)
-                        // recipeObj.name = e.target.value
-                        // console.log(recipeObj)
-                    }}
-                    placeholder={"Namn"}/>
-            </ListRow>
-            <Recipe/>
-            <AddIngredient/>
-            <ListRow>
-                <button onClick={e => {
+            <Row>
+                <Input recipeName
+                       ref={nameRef}
+                       id={"name"}
+                       onChange={(e) => {
+                           recipeObj.name = e.target.value
+                       }}
+                       placeholder={"Namn"}/>
+            </Row>
+            {
+                ingredients.map(ingredient =>
+                    <Ingredient thisIngredient={ingredient}
+                                ingredients={ingredients}
+                                setIngredients={setIngredients}/>)
+            }
+            <AddIngredient ingredientRef={ingredientRef}
+                           amountRef={amountRef}
+                           handleAddIngredient={handleAddIngredient.bind(this)}/>
+            <Row>
+                <Button rightAligned onClick={e => {
                     handleSubmit(e)
-                }}>sub
-                </button>
-            </ListRow>
-        </>
-    );
-}
+                }}>
+                    Add Recipe
+                </Button>
+            </Row>
+            <Row>
 
+            </Row>
+        </>
+    )
+}
 export default AddRecipe

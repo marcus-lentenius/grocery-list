@@ -19,17 +19,14 @@ export class App extends React.Component {
             reference_list: [],
             sorting_order: [],
             new_items: [],
-            fetchItems: this.fetchItems.bind(this),
-            deleteItem: this.deleteItem.bind(this),
-            fetchReferenceList: this.fetchReferenceList.bind(this),
-            importFromTodoist: this.importFromTodoist.bind(this)
+            recipes: [],
         };
     }
 
     componentDidMount() {
         fireBase.auth().signInWithEmailAndPassword('marcus@lentenius.se', 'password')
             .then(success => {
-                // this.fetch().catch((e) => console.error(e));
+                this.fetch().catch((e) => console.error(e));
             })
             .catch((e) => console.error(e));
     }
@@ -40,6 +37,7 @@ export class App extends React.Component {
         await this.fetchReferenceList();
         await this.fetchSortOrder();
         await this.fetchNewItems()
+        await this.fetchRecipes()
         console.log('Preload complete')
     }
 
@@ -60,8 +58,7 @@ export class App extends React.Component {
         console.log('Fetching recipes...')
         const response = await Read('recipes');
         //todo ta bort items[]från firestore?
-        console.log(response)
-        // this.setState({recipes: response})
+        this.setState({recipes: response.recipes})
         console.log('Recipes fetched')
     }
 
@@ -99,10 +96,12 @@ export class App extends React.Component {
                     reference_list: this.state.reference_list,
                     sorting_order: this.state.sorting_order,
                     new_items: this.state.new_items,
+                    recipes: this.state.recipes,
                     fetchItems: this.fetchItems.bind(this),
                     deleteItem: this.deleteItem.bind(this),
                     fetchReferenceList: this.fetchReferenceList.bind(this),
                     importFromTodoist: this.importFromTodoist.bind(this),
+                    fetchRecipes: this.fetchRecipes.bind(this),
                     updateData: this.updateData.bind(this)
                 }
             }>

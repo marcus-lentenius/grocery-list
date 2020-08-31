@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import AppData from "./App";
 import Item from "./Item";
 import {CategoryHeadline} from "./style/CategoryHeadline";
+import {Text} from "./style/Text";
 
 const Category = ({category}) => {
     const Data = useContext(AppData)
@@ -25,13 +26,13 @@ const Category = ({category}) => {
     return (
         <>
             {category !== '' ? (
-                <CategoryHeadline onClick={()=>handleClick()}>
+                <Text headline onClick={()=>handleClick()}>
                     {category}
-                </CategoryHeadline>
+                </Text>
             ) : (
-                <CategoryHeadline onClick={()=>handleClick()}>
+                <Text headline onClick={()=>handleClick()}>
                     Okänd
-                </CategoryHeadline>
+                </Text>
             )}
             { showList ? <List/> : null }
         </>

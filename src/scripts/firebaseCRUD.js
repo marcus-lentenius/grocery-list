@@ -57,8 +57,13 @@ export const Delete = async (item, path) => {
 }
 
 
-//todo ta bort array?
-export const Create = async (items, {name, category = '', amount = 1, id = Math.round(Math.random() * (99999999 - 11111111) + 11111111)}) => {
+//todo ta bort array? param items
+export const Create = async (items, {
+    name,
+    category = '',
+    amount = 1,
+    id = Math.round(Math.random() * (99999999 - 11111111) + 11111111)
+}) => {
 
     //todo gör en .set med en ny lista så duplicates får finnas
     const item = {
@@ -87,12 +92,18 @@ export const Create = async (items, {name, category = '', amount = 1, id = Math.
 export const CreateRecipe = async (recipe) => {
     //todo gör en .set med en ny lista så duplicates får finnas
 
-    return fireStore.collection('grocery_list').doc('recipes').set({
-        [recipe.name]: {
-            ingredients: recipe.ingredients,
-            id: recipe.id
-        }
-    }, { merge: true }).catch((e) => console.error('write error: ', e));
+    return fireStore.collection('grocery_list').doc('recipes').update({
+        recipes: firebase.firestore.FieldValue.arrayUnion(recipe)
+    }).catch((e) => console.error('write error: ', e));
+    // }, { merge: true }).catch((e) => console.error('write error: ', e));
+    // return fireStore.collection('grocery_list').doc('recipes').set({
+    //     recipes: recipe
+    //         // {
+    //         // name:
+    //         // ingredients: recipe.ingredients,
+    //         // id: recipe.id
+    //     // }
+    // }, { merge: true }).catch((e) => console.error('write error: ', e));
 };
 
 export const CreateNewItem = async (name) => {
