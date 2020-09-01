@@ -2,11 +2,11 @@ import React, {useContext} from "react";
 import {CheckBox} from "./style/CheckBox";
 import {Row} from "../shared/style/Row";
 import {Delete} from "../../scripts/firebaseCRUD";
-import AppData from "../App";
 import {Text} from "../shared/style/Text";
+import {LoadItems} from "../shared/DataLoader";
 
 const Item = ({item}) => {
-    const Data = useContext(AppData)
+    const Data = useContext(LoadItems);
 
     return (
         <Row groceryList>

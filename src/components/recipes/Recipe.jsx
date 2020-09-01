@@ -1,16 +1,16 @@
 import React, {useContext, useEffect, useState} from "react";
 import {RecipeBackground} from "./style/RecipeBackground";
-import AppData from "../App";
 import {Text} from "../shared/style/Text";
 import {Center} from "../shared/style/Center";
 import {Row} from "../shared/style/Row";
 import {Button} from "../shared/style/Button";
-import {Create, Delete, DeleteRecipe} from "../../scripts/firebaseCRUD";
+import {Create, DeleteRecipe} from "../../scripts/firebaseCRUD";
 import {CategorizeItem} from "../../scripts/categorizeItems";
 import {caseString} from "../../scripts/formatText";
+import {LoadItems} from "../shared/DataLoader";
 
 const Recipe = ({recipeId, unMountRecipe}) => {
-    const Data = useContext(AppData)
+    const Data = useContext(LoadItems);
     const [recipes, setRecipes] = useState([])
 
     useEffect(() => {
@@ -24,9 +24,9 @@ const Recipe = ({recipeId, unMountRecipe}) => {
         Data.fetchItems()
     };
 
-    const handleDelete = (recipe)=>{
+    const handleDelete = (recipe) => {
         DeleteRecipe(recipe, 'recipes')
-        Data.updateData();
+        Data.updateData('recipes');
         unMountRecipe()
     }
 
@@ -50,10 +50,10 @@ const Recipe = ({recipeId, unMountRecipe}) => {
                                     )
                                 )
                             }
-                            <Button onClick={()=>handleDelete(recipe)}>
+                            <Button onClick={() => handleDelete(recipe)}>
                                 Delete
                             </Button>
-                            <Button rightAligned onClick={()=>unMountRecipe()}>
+                            <Button rightAligned onClick={() => unMountRecipe()}>
                                 Close
                             </Button>
                         </Center>

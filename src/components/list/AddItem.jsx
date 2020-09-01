@@ -3,16 +3,15 @@ import {Button} from "../shared/style/Button";
 import {Create} from "../../scripts/firebaseCRUD";
 import {CategorizeItem} from "../../scripts/categorizeItems";
 import {caseString} from "../../scripts/formatText";
-import AppData from "../App";
 import {Input} from "../shared/style/Input";
-import {ContextData} from "../View";
+import {LoadItems} from "../shared/DataLoader";
 
 /**
  * Section for form to add new items to the list
  */
 
 const AddItem = () => {
-    const Data = useContext(AppData)
+    const Data = useContext(LoadItems);
     const [amount, setAmount] = useState(1)
     const newItem = useRef(); // <input> add item
 
@@ -26,7 +25,11 @@ const AddItem = () => {
                 category: category,
                 amount: amount
             }).catch((e) => console.error(e));
-            Data.updateData()
+
+            Data.updateData('items')
+            if (category !== '') {
+                Data.updateData('newItems');
+            }
         }
 
         setAmount(1);

@@ -1,15 +1,15 @@
 import React, {useContext, useState} from "react";
-import AppData from "../App";
 import Item from "./Item";
 import {Text} from "../shared/style/Text";
 import {getId} from "../../scripts/idGenerator";
+import {LoadItems} from "../shared/DataLoader";
 
 /**
  * Groups all items under respective category and function for hiding/showing each category
  */
 
 const Category = ({category}) => {
-    const Data = useContext(AppData)
+    const Data = useContext(LoadItems);
     const [showList, setShowList] = useState(true)
 
     const handleClick = () => {
@@ -29,15 +29,15 @@ const Category = ({category}) => {
     return (
         <>
             {category !== '' ? (
-                <Text headline onClick={()=>handleClick()}>
+                <Text headline onClick={() => handleClick()}>
                     {category}
                 </Text>
             ) : (
-                <Text headline onClick={()=>handleClick()}>
+                <Text headline onClick={() => handleClick()}>
                     Okänd
                 </Text>
             )}
-            { showList ? <List/> : null }
+            {showList ? <List/> : null}
         </>
     )
 }

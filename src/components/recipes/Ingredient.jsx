@@ -10,8 +10,8 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
     const amount = useRef()
     const updateItem = useRef()
 
-    useEffect(()=>{
-        if(isUpdateable) {
+    useEffect(() => {
+        if (isUpdateable) {
             updateItem.current.focus()
             updateItem.current.select()
         }

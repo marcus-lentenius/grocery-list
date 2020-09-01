@@ -1,14 +1,14 @@
 import React, {useContext} from "react";
-import AppData from "../App";
 import {caseString} from "../../scripts/formatText";
 import {Select} from "./style/Select";
+import {LoadItems} from "../shared/DataLoader";
 
 /**
  * Renders a select list with the names on the categories
  */
 
 const NewItemOptions = () => {
-    const Data = useContext(AppData);
+    const Data = useContext(LoadItems);
 
     return (
         <Select>

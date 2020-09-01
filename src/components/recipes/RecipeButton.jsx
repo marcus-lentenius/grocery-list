@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Button} from '../shared/style/Button'
-import AppData from "../App";
 import Recipe from "./Recipe";
 import {Center} from "../shared/style/Center";
+import {LoadItems} from "../shared/DataLoader";
 
 const RecipeButtons = () => {
-    const Data = useContext(AppData)
+    const Data = useContext(LoadItems);
     const [recipes, setRecipes] = useState([])
     const [showRecipe, setShowRecipe] = useState(false);
     const [recipeId, setRecipeId] = useState()
