@@ -5,16 +5,15 @@ import {Input} from "../shared/style/Input";
 import {CreateRecipe} from "../../scripts/firebaseCRUD";
 import AddIngredient from "./AddIngredient";
 import Ingredient from "./Ingredient";
-import AppData from "../App";
 import {getId} from "../../scripts/idGenerator";
-import {caseString} from "../../scripts/formatText";
+import {LoadItems} from "../shared/DataLoader";
 
 /**
  * Renders form for adding recipe
  */
 
 const AddRecipe = () => {
-    const Data = useContext(AppData);
+    const Data = useContext(LoadItems);
     const [ingredients, setIngredients] = useState([])
 
     const ingredientRef = useRef(null);

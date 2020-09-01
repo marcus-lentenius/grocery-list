@@ -1,12 +1,11 @@
 import React, {useContext} from "react";
-import AppData from "../App";
 import NewItemOptions from "./NewItemOptions";
-import {Delete, AddItemToReferenceList, Create} from "../../scripts/firebaseCRUD";
+import {AddItemToReferenceList, Delete} from "../../scripts/firebaseCRUD";
 import {Row} from "../shared/style/Row";
 import {Button} from "../shared/style/Button";
 import {caseString} from "../../scripts/formatText";
 import {Text} from "../shared/style/Text";
-import {CategorizeItem} from "../../scripts/categorizeItems";
+import {LoadItems} from "../shared/DataLoader";
 
 /**
  *  Iterates a list of items that does not exist in the reference list document (in firebase)
@@ -15,12 +14,12 @@ import {CategorizeItem} from "../../scripts/categorizeItems";
  */
 
 const NewItems = () => {
-    const Data = useContext(AppData);
+    const Data = useContext(LoadItems);
 
     const handleUpdate = (e, item) => {
         AddItemToReferenceList(item, e.target.value)
         Delete(item, 'new_items');
-        Data.updateData()
+        Data.updateData('newItems')
     }
 
     return (
@@ -40,7 +39,7 @@ const NewItems = () => {
                                 <Button rightAligned onClick={(e) => {
                                     e.preventDefault();
                                     Delete(item, 'new_items');
-                                    Data.updateData();
+                                    Data.updateData('items');
                                 }}>
                                     Delete
                                 </Button>
