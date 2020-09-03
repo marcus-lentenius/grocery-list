@@ -1,7 +1,11 @@
 import React, {useContext} from "react";
-import {caseString} from "../../scripts/formatText";
+import AddItem from "./AddItem";
+import {Button} from "../shared/style/Button";
+import {Wrapper} from "../shared/style/Wrapper";
 import Category from "./Category";
 import {LoadItems} from "../shared/DataLoader";
+import {caseString} from "../../scripts/formatText";
+import {Text} from "../shared/style/Text";
 
 
 const List = () => {
@@ -17,13 +21,24 @@ const List = () => {
     }
 
     return (
-        <>
+        <Wrapper main>
+            <Text groceryListHeadline>
+                Grocery list
+            </Text>
             {
                 category.map(category => (
                     <Category key={'list_' + category} category={category}/>
                 ))
             }
-        </>
+
+            <Button rightAligned onClick={() => {
+                Data.importFromTodoist()
+            }
+            }>
+                Import from Todoist
+            </Button>
+            <AddItem/>
+        </Wrapper>
     );
 }
 

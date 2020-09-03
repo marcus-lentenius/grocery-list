@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Button} from '../shared/style/Button'
 import Recipe from "./Recipe";
-import {Center} from "../shared/style/Center";
+import {Wrapper} from "../shared/style/Wrapper";
 import {LoadItems} from "../shared/DataLoader";
 
 const RecipeButtons = () => {
@@ -28,7 +28,7 @@ const RecipeButtons = () => {
 
             {showRecipe ? <Recipe recipeId={recipeId}
                                   unMountRecipe={unMountRecipe}/> : null}
-            <Center>
+            <Wrapper>
                 {recipes.map(recipe => (
                     <Button recipe
                             key={recipe.id}
@@ -37,7 +37,7 @@ const RecipeButtons = () => {
                             }}
                     >{recipe.name}</Button>
                 ))}
-            </Center>
+            </Wrapper>
         </>
     )
 }

@@ -4,15 +4,11 @@ const item = `
     margin: 0 0 0 22px;
     font-size: 14px;
 `
-const headline = `
+const categoryHeadline = `
     cursor: pointer;
     position: relative;
-    width: 408px;
-    margin: 15px 0 0 0;
-    color: blue;
+    margin: 15px 0 5px 0;
     font-size: 16px;
-    text-align: center;
-    border-bottom: 1px solid #ababab;
 `
 const ingredient = `
 width: 360px;
@@ -21,6 +17,27 @@ const recipeHeadline = `
 font-size: 25px;
 text-align: center;
 `
+const groceryListHeadline = `
+font-size: 25px;
+text-align: center;
+margin: 20px;
+`
+const routerLink = `
+color: black;
+font-size: 25px;
+text-decoration: none;
+text-align: right;
+white-space: nowrap;
+margin-left: 30px;
+margin-right: 10px;
+`
+const menuSymbol = `
+margin-bottom: 70px;
+font-size: 25px;
+text-align: right;
+margin: 10px
+`
+
 export const Text = styled.p`
 margin: 0;
 font-size: 14px;
@@ -29,8 +46,11 @@ font-family: Arial,serif;
 
 ${props =>
     props.item ? item : '' ||
-    props.headline ? headline : ''||
-    props.ingredient ? ingredient : ''||
-    props.recipeHeadline ? recipeHeadline : ''
+    props.categoryHeadline ? categoryHeadline : '' ||
+    props.ingredient ? ingredient : '' ||
+    props.recipeHeadline ? recipeHeadline : '' ||
+    props.routerLink ? routerLink : '' ||
+    props.groceryListHeadline ? groceryListHeadline :  '' ||
+    props.menuSymbol ? menuSymbol : ''
 };
 `

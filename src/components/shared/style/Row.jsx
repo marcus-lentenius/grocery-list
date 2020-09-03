@@ -2,17 +2,15 @@ import styled from "@emotion/styled";
 
 const groceryList = `
     align-items: center;
-    width: 408px;
     height: 32px;
     position: relative;
-    border-bottom: 1px solid #dcdcdc;
+    border-top: 1px solid #efeded;
     display: flex;
 `
 
 const base = `
     width: 300px;
     align-items: center;
-    width: 408px;
     height: 32px;
     position: relative;
     display: flex;

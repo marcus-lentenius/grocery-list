@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {RecipeBackground} from "./style/RecipeBackground";
 import {Text} from "../shared/style/Text";
-import {Center} from "../shared/style/Center";
+import {Wrapper} from "../shared/style/Wrapper";
 import {Row} from "../shared/style/Row";
 import {Button} from "../shared/style/Button";
 import {Create, DeleteRecipe} from "../../scripts/firebaseCRUD";
@@ -36,7 +36,7 @@ const Recipe = ({recipeId, unMountRecipe}) => {
                 onClick={() => unMountRecipe()}/>
             {recipes.filter(recipe => recipe.id === recipeId)
                 .map(recipe => (
-                        <Center recipe>
+                        <Wrapper recipe>
                             <Text recipeHeadline>{recipe.name}</Text>
                             {
                                 recipe.ingredients.map(ingredient => (
@@ -56,7 +56,7 @@ const Recipe = ({recipeId, unMountRecipe}) => {
                             <Button rightAligned onClick={() => unMountRecipe()}>
                                 Close
                             </Button>
-                        </Center>
+                        </Wrapper>
                     )
                 )
             }
