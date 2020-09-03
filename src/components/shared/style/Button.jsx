@@ -1,14 +1,16 @@
 import styled from '@emotion/styled'
-
+//todo make default style
 const increaseAmount = `
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 0; 
+    margin-right: 5px;
     `
 const decreaseAmount = `
     border-right: 0; 
+    margin-left: 5px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-top-left-radius: .25rem;
@@ -46,6 +48,7 @@ const rightAligned = `
     border-radius: .25rem;
     position: absolute;
     right: 0;
+    margin: 5px 10px;
 `
 
 const recipe = `
@@ -61,7 +64,7 @@ export const Button = styled.div`
     box-sizing:border-box;
     display:inline-block;
     height: 32px;
-    padding: 4.5px 6px;
+    padding: 4.5px 10px;
     position: relative;
     color: #ababab;
     border: 1px #ababab solid;

@@ -6,6 +6,7 @@ import {Button} from "../shared/style/Button";
 import {caseString} from "../../scripts/formatText";
 import {Text} from "../shared/style/Text";
 import {LoadItems} from "../shared/DataLoader";
+import {Wrapper} from "../shared/style/Wrapper";
 
 /**
  *  Iterates a list of items that does not exist in the reference list document (in firebase)
@@ -23,7 +24,7 @@ const NewItems = () => {
     }
 
     return (
-        <>
+        <Wrapper main>
             {
                 Data.new_items.map(item => {
                     return (
@@ -48,7 +49,7 @@ const NewItems = () => {
                     );
                 })
             }
-        </>
+        </Wrapper>
     )
 }
 

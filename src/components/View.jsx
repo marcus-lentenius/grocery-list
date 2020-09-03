@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import AddRecipe from './recipes/AddRecipe'
-import {Center} from './shared/style/Center'
+import {Wrapper} from './shared/style/Wrapper'
 import RecipeButtons from "./recipes/RecipeButton";
 import AddItem from "./list/AddItem";
 import List from "./list/List";
@@ -14,7 +14,7 @@ const View = () => {
 
     return (
         <>
-            <Center>
+            <Wrapper>
                 <AddItem/>
                 <List/>
                 <Button onClick={() => {
@@ -24,10 +24,10 @@ const View = () => {
                     Import from Todoist
                 </Button>
                 <NewItems/>
-            </Center>
-            <Center>
+            </Wrapper>
+            <Wrapper>
                 <AddRecipe/>
-            </Center>
+            </Wrapper>
             <RecipeButtons/>
         </>
     )

@@ -29,11 +29,11 @@ const Category = ({category}) => {
     return (
         <>
             {category !== '' ? (
-                <Text headline onClick={() => handleClick()}>
+                <Text categoryHeadline onClick={() => handleClick()}>
                     {category}
                 </Text>
             ) : (
-                <Text headline onClick={() => handleClick()}>
+                <Text categoryHeadline onClick={() => handleClick()}>
                     Okänd
                 </Text>
             )}
