@@ -48,10 +48,16 @@ const drawer = `
     position: fixed;
     top: 7px;
 `
+
+const rightAligned = `
+    right: 8px;
+    position: absolute;
+`
 export const Button = styled.div`
 ${props =>
     props.decreaseAmount ? decreaseAmount + base :
     props.increaseAmount ? increaseAmount + base :
+    props.rightAligned ? rightAligned + base :
     props.leftDrawer ? leftDrawer + drawer :
     props.rightDrawer ? rightDrawer + drawer :
     props ? base : null
