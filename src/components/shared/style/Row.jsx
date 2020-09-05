@@ -1,25 +1,15 @@
 import styled from "@emotion/styled";
 
 const groceryList = `
-    align-items: center;
-    height: 32px;
     position: relative;
-    border-top: 1px solid #efeded;
+    border-bottom: 1px solid #efeded;
     display: flex;
-`
-
-const base = `
-    width: 300px;
-    align-items: center;
-    height: 32px;
-    position: relative;
-    display: flex;
+        margin-top: 10px;
+        text-align: right;
 `
 const recipeIngredient = `
     width: 300px;
     align-items: center;
-    width: 408px;
-    height: 32px;
     position: relative;
     display: flex;
     left: 50%;
@@ -28,7 +18,9 @@ const recipeIngredient = `
 
 
 export const Row = styled.div`
+    width: 100%;
+    height: 32px;
 ${props =>
-    props.groceryList ? groceryList : base ||
-    props.recipeIngredient ? recipeIngredient : base};
+    props.groceryList ? groceryList : '' ||
+    props.recipeIngredient ? recipeIngredient : ''};
 `

@@ -1,14 +1,25 @@
-import React from "react";
+import React, {useContext} from "react";
+import Recipe from "./Recipe";
+import {LoadItems} from "../shared/DataLoader";
 import AddRecipe from "./AddRecipe";
-import RecipeButtons from "./RecipeButton";
-import {Wrapper} from "../shared/style/Wrapper";
+import Drawer from "../Drawer";
+import {Button} from "../shared/style/Button";
 
 const Recipes = () => {
+    const Data = useContext(LoadItems);
+
+    const DrawerContent = [
+        <AddRecipe/>
+    ]
+
     return (
-        <Wrapper main>
-            <AddRecipe/>
-            <RecipeButtons/>
-        </Wrapper>
+        <>
+            <Drawer anchor={'right'} content={DrawerContent} disableClickToClose={true}/>
+
+            {Data.recipes.map(recipe => (
+                <Recipe recipe={recipe} key={recipe.name}/>
+            ))}
+        </>
     )
 }
 export default Recipes

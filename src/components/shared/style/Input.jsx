@@ -21,17 +21,16 @@ const addAmount = `
     padding: 0 3px;
 `
 const recipeName = `
-    width: calc(100% - 80px);
+width: calc(100% - 30px);
     background-color: #ffffff;
     color: #858585;
     border-radius: .25rem;
     border: 1px solid #ababab;
     height: 30px;
     padding: 0 15px;
-    margin: 10px 0 0 25px;
 `
 const ingredient = `
-    width: 408px;
+width: calc(100% - 30px);
     background-color: #ffffff;
     color: #858585;
     border-radius: .25rem;

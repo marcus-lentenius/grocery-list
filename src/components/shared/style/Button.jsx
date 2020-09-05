@@ -1,81 +1,59 @@
 import styled from '@emotion/styled'
-//todo make default style
-const increaseAmount = `
-    border-top-right-radius: .25rem;
-    border-bottom-right-radius: .25rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: 0; 
-    margin-right: 5px;
-    `
+
 const decreaseAmount = `
-    border-right: 0; 
-    margin-left: 5px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: .25rem;
-    border-bottom-left-radius: .25rem;
+border-right: 0;
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
     `
-const amountButtons = `
-    -webkit-user-select: none; /* Chrome/Safari */        
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+ */
-    background-color:rgb(239, 239, 239);
-    box-sizing:border-box;
-    display:inline-block;
-    height: 32px;
-    padding: 4.5px 6px;
-    position: relative;
-    color: #ababab;
-    border: 1px #ababab solid;
-    font-weight: 400;
+const increaseAmount = `
+border-left: 0;
+border-top-left-radius: 0;
+border-bottom-left-radius: 0;
+    `
+
+
+const base = `
+    font: 400 13.3333px Arial;
     cursor: pointer;
-    font-size: 14px;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+    color: rgba(0,0,0,0.87);
+    box-sizing: border-box;
+    letter-spacing: 0.02857em;
+    padding: 4px 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    height: 32px;
 `
 
-const rightAligned = `
-    background-color:rgb(239, 239, 239);
-    box-sizing:border-box;
-    display:inline-block;
-    height: 32px;
-    padding: 4.5px 6px;
-    position: relative;
-    color: #ababab;
-    border: 1px #ababab solid;
-    font-weight: 400;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: .25rem;
-    position: absolute;
+const leftDrawer = `
+    border-right: 1px solid gray;
+    left: 0;
+`
+const rightDrawer = `
+    border-left: 1px solid gray;
     right: 0;
-    margin: 5px 10px;
 `
 
-const recipe = `
-height: 100px;
-width: 100px;
-padding: 0 10px;
-margin: 10px;
+const drawer = `
+    padding: 0 6px;
+    z-index: 1300;
+    width: fit-content;
+    color: black;
+    font-size: 18px;
+    display: inline-block;
+    position: fixed;
+    top: 7px;
 `
-
 export const Button = styled.div`
-    text-align: center;
-    background-color:rgb(239, 239, 239);
-    box-sizing:border-box;
-    display:inline-block;
-    height: 32px;
-    padding: 4.5px 10px;
-    position: relative;
-    color: #ababab;
-    border: 1px #ababab solid;
-    border-radius: .25rem;
-    font-weight: 400;
-    cursor: pointer;
-    font-size: 14px;
-    
-    ${props =>
-    props.increaseAmount ? amountButtons + increaseAmount : '' ||
-    props.decreaseAmount ? amountButtons + decreaseAmount : '' ||
-    props.rightAligned ? rightAligned : '' ||
-    props.recipe ? recipe : ''}
+${props =>
+    props.decreaseAmount ? decreaseAmount + base :
+    props.increaseAmount ? increaseAmount + base :
+    props.leftDrawer ? leftDrawer + drawer :
+    props.rightDrawer ? rightDrawer + drawer :
+    props ? base : null
+}
 `

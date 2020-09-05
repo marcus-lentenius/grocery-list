@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import {Row} from "../shared/style/Row";
-import {Button} from "../shared/style/Button";
 import {Input} from "../shared/style/Input";
 import {CreateRecipe} from "../../scripts/firebaseCRUD";
 import AddIngredient from "./AddIngredient";
 import Ingredient from "./Ingredient";
 import {getId} from "../../scripts/idGenerator";
 import {LoadItems} from "../shared/DataLoader";
+import {Button} from "../shared/style/Button";
 
 /**
  * Renders form for adding recipe
@@ -71,7 +71,6 @@ const AddRecipe = () => {
 
     return (
         <>
-            <Row>
                 <Input recipeName
                        ref={nameRef}
                        id={"name"}
@@ -79,7 +78,6 @@ const AddRecipe = () => {
                            recipe.name = e.target.value
                        }}
                        placeholder={"Namn"}/>
-            </Row>
             {
                 ingredients.map(ingredient =>
                     <Ingredient thisIngredient={ingredient}
@@ -90,7 +88,7 @@ const AddRecipe = () => {
                            amountRef={amountRef}
                            handleAddIngredient={handleAddIngredient.bind(this)}/>
             <Row>
-                <Button rightAligned onClick={e => {
+                <Button variant={"contained"} disableElevation size="small"  onClick={e => {
                     handleSubmit(e)
                 }}>
                     Add Recipe

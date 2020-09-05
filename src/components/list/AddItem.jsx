@@ -1,11 +1,11 @@
 import React, {useContext, useRef, useState} from "react";
-import {Button} from "../shared/style/Button";
 import {Create} from "../../scripts/firebaseCRUD";
 import {CategorizeItem} from "../../scripts/categorizeItems";
 import {caseString} from "../../scripts/formatText";
 import {Input} from "../shared/style/Input";
 import {LoadItems} from "../shared/DataLoader";
-import {Wrapper} from "../shared/style/Wrapper";
+import Grid from "@material-ui/core/Grid";
+import {Button} from "../shared/style/Button";
 
 /**
  * Section for form to add new items to the list
@@ -28,7 +28,7 @@ const AddItem = () => {
             }).catch((e) => console.error(e));
 
             Data.updateData('items')
-            if (category !== '') {
+            if (category === '') {
                 Data.updateData('newItems');
             }
         }
@@ -38,17 +38,25 @@ const AddItem = () => {
         item.focus()
     }
 
+    const sticky = {
+        marginTop: "20px",
+        position: "sticky",
+        bottom: "10px",
+    }
+
     return (
-        <Wrapper addItem>
-            <Wrapper stretch>
+        <Grid container style={sticky}>
+            <Grid item xs>
                 <Input addItem ref={newItem} onKeyPress={e => {
                     if (e.key === "Enter") {
                         handleSubmit()
                     }
                 }}/>
-            </Wrapper>
-            <Wrapper>
+            </Grid>
+
+            <Grid item>
                 <Button decreaseAmount onClick={e => {
+                    newItem.current.focus();
                     e.preventDefault();
                     e.stopPropagation();
                     if (amount > 1) {
@@ -57,24 +65,26 @@ const AddItem = () => {
                 }}>
                     -
                 </Button>
-                {/*//todo add manually?*/}
+
                 <Input addAmount value={amount} name="amount"/>
 
                 <Button increaseAmount onClick={e => {
+                    newItem.current.focus();
                     e.preventDefault();
                     e.stopPropagation();
                     setAmount(amount + 1)
                 }}>
                     +
                 </Button>
-                <Button onClick={() => {
-                    handleSubmit()
-                }}>
+                <Button variant={"contained"} disableElevation size="small" onClick={() => handleSubmit()}>
                     Add
                 </Button>
-            </Wrapper>
-        </Wrapper>
-    )
+            </Grid>
+        </Grid>
+    );
 }
 
+
 export default AddItem;
+
+

@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Row} from "../shared/style/Row";
-import {Text} from "../shared/style/Text";
-import {Button} from "../shared/style/Button";
 import {Input} from "../shared/style/Input";
+import Grid from "@material-ui/core/Grid";
+import {Text} from "../shared/style/Text";
 import {caseString} from "../../scripts/formatText";
+import {Button} from "../shared/style/Button";
+
 
 const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
     const [isUpdateable, setUpdatable] = useState(false);
@@ -42,42 +43,49 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
     }
 
     return (
-        <Row>
+        <Grid container>
             {
                 isUpdateable ?
                     <>
-                        <Input addItem
-                               ref={updateItem}
-                               defaultValue={caseString(thisIngredient.name)}
-                               onChange={(e) => thisIngredient.name = e.target.value}/>
+                        <Grid item xs>
+                            <Input addItem
+                                   ref={updateItem}
+                                   defaultValue={caseString(thisIngredient.name)}
+                                   onChange={(e) => thisIngredient.name = e.target.value}/>
+                        </Grid>
 
-                        <Button decreaseAmount onClick={() => handleDecreaseAmount()}>
-                            -
-                        </Button>
+                        <Grid item>
+                            <Button variant={"contained"} disableElevation size="small"  decreaseAmount onClick={() => handleDecreaseAmount()}>
+                                -
+                            </Button>
 
-                        <Input addAmount ref={amount} value={thisIngredient.amount}/>
+                            <Input addAmount ref={amount} value={thisIngredient.amount}/>
 
-                        <Button increaseAmount onClick={() => handleIncreaseAmount()}>
-                            +
-                        </Button>
+                            <Button variant={"contained"} disableElevation size="small"  increaseAmount onClick={() => handleIncreaseAmount()}>
+                                +
+                            </Button>
 
-                        <Button onClick={() => {
-                            setUpdatable(false)
-                        }}>Apply</Button>
+                            <Button variant={"contained"} disableElevation size="small"  onClick={() => {
+                                setUpdatable(false)
+                            }}>Apply</Button>
+                        </Grid>
                     </>
                     :
                     <>
-                        <Text ingredient key={thisIngredient.id}
-                              onClick={() => setUpdatable(true)}>
-                            {thisIngredient.amount} {thisIngredient.name}
-                        </Text>
-
-                        <Button rightAligned onClick={() => handleDeleteIngredient()}>
-                            Delete
-                        </Button>
+                        <Grid item xs>
+                            <Text ingredient key={thisIngredient.id}
+                                  onClick={() => setUpdatable(true)}>
+                                {thisIngredient.amount} {thisIngredient.name}
+                            </Text>
+                        </Grid>
+                        <Grid item>
+                            <Button variant={"contained"} disableElevation size="small"  onClick={() => handleDeleteIngredient()}>
+                                Delete
+                            </Button>
+                        </Grid>
                     </>
             }
-        </Row>
+        </Grid>
     )
 }
 
