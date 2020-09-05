@@ -11,9 +11,11 @@ const categoryHeadline = `
 const ingredient = `
 width: 100%;
 `
+
 const recipeHeadline = `
 font-size: 25px;
 `
+
 const groceryListHeadline = `
 font-size: 25px;
 text-align: center;
@@ -29,6 +31,14 @@ margin-left: 30px;
 margin-right: 10px;
 `
 
+const inline = `
+display: inline-block;
+height: 40px;
+
+    font-size: 22px;
+    position: relative;
+`
+
 export const Text = styled.p`
 margin: 0;
 font-size: 14px;
@@ -40,6 +50,7 @@ ${props =>
     props.ingredient ? ingredient : '' ||
     props.recipeHeadline ? recipeHeadline : '' ||
     props.routerLink ? routerLink : '' ||
-    props.groceryListHeadline ? groceryListHeadline :  ''
+    props.groceryListHeadline ? groceryListHeadline :  '' ||
+    props.inline ? inline :  ''
 };
 `

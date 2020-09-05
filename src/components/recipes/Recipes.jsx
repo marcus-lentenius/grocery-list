@@ -4,12 +4,66 @@ import {LoadItems} from "../shared/DataLoader";
 import AddRecipe from "./AddRecipe";
 import Drawer from "../Drawer";
 import {Button} from "../shared/style/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
+import {DeleteRecipe} from "../../scripts/firebaseCRUD";
+import {Text} from "../shared/style/Text";
+import {Box} from "@material-ui/core";
 
 const Recipes = () => {
     const Data = useContext(LoadItems);
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleDelete = (recipe) => {
+        DeleteRecipe(recipe, 'recipes')
+        Data.fetchRecipes();
+    }
+
+    const recipeToDelete = (recipe) => (
+        <Box>
+            <Text inline>{recipe.name}</Text>
+            <Button rightAligned onClick={handleClickOpen}>
+                Delete
+            </Button>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Do you want to delete this recipe?"}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={() => {
+                        handleClose()
+                        handleDelete(recipe)
+                    }}>
+                        Yes
+                    </Button>
+                    <Button onClick={handleClose} autoFocus>
+                        No
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </Box>
+    )
+
     const DrawerContent = [
-        <AddRecipe/>
+        <Box m={1}>
+            <AddRecipe/>
+            {Data.recipes.map(recipe => recipeToDelete(recipe))}
+        </Box>
     ]
 
     return (

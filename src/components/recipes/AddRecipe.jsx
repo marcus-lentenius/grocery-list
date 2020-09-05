@@ -7,6 +7,7 @@ import Ingredient from "./Ingredient";
 import {getId} from "../../scripts/idGenerator";
 import {LoadItems} from "../shared/DataLoader";
 import {Button} from "../shared/style/Button";
+import {Box} from "@material-ui/core";
 
 /**
  * Renders form for adding recipe

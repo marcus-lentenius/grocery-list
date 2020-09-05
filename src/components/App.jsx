@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {Text} from "./shared/style/Text";
 import Drawer from "./Drawer";
+import List from "./list/List";
+import Redirect from "react-router-dom/es/Redirect";
 
 //tests
 // add item
@@ -66,6 +68,7 @@ export const App = () => {
     return (
         <>
             <Drawer anchor={'left'} content={drawerContent}/>
+            <Redirect to='/recipes'/>
         </>
     );
 }

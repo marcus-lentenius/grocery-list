@@ -14,12 +14,7 @@ import {Row} from "../shared/style/Row";
 import {LoadItems} from "../shared/DataLoader";
 import {CategorizeItem} from "../../scripts/categorizeItems";
 import {caseString} from "../../scripts/formatText";
-import {Create, DeleteRecipe} from "../../scripts/firebaseCRUD";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
-import Dialog from "@material-ui/core/Dialog";
+import {Create} from "../../scripts/firebaseCRUD";
 
 const useStyles = makeStyles((theme) => ({
     expand: {
@@ -36,17 +31,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Recipe = ({recipe}) => {
     const Data = useContext(LoadItems);
-    const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const classes = useStyles();
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -59,10 +45,6 @@ const Recipe = ({recipe}) => {
         Data.fetchItems()
     };
 
-    const handleDelete = (recipe) => {
-        DeleteRecipe(recipe, 'recipes')
-        Data.updateData('recipes');
-    }
 
     return (
         <Card variant={"outlined"}>
@@ -91,7 +73,7 @@ const Recipe = ({recipe}) => {
                         recipe.ingredients.map(ingredient => (
                                 <Row recipeIngredient>
                                     <Text>{ingredient.amount} {ingredient.name}</Text>
-                                    <Button variant={"contained"} disableElevation size="small"  onClick={(e) => {
+                                    <Button variant={"contained"} disableElevation size="small" onClick={(e) => {
                                         handleOnClick(ingredient.name, ingredient.amount);
                                         e.target.parentNode.remove()
                                     }}>Add</Button>
@@ -99,28 +81,6 @@ const Recipe = ({recipe}) => {
                             )
                         )
                     }
-
-                    <Button variant={"contained"} disableElevation size="small" onClick={handleClickOpen}>
-                        Delete
-                    </Button>
-                    <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">
-                            {"Do you want to delete this recipe?"}
-                        </DialogTitle>
-                        <DialogActions>
-                            <Button onClick={handleClose} color="primary">
-                                Yes
-                            </Button>
-                            <Button onClick={handleClose} color="primary" autoFocus>
-                                No
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
                 </CardContent>
             </Collapse>
         </Card>
