@@ -54,12 +54,10 @@ export const Loader = props => {
             case 'newItems':
                 fetchNewItems();
                 break;
+            case 'items':
+                fetchItems();
+                break;
         }
-        // fetchSortOrder();
-        // fetchReferenceList();
-        fetchData();
-        // fetchNewItems()
-        // fetchRecipes()
     }
 
     const fetchItems = async () => {

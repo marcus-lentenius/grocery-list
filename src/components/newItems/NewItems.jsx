@@ -1,12 +1,11 @@
 import React, {useContext} from "react";
 import NewItemOptions from "./NewItemOptions";
 import {AddItemToReferenceList, Delete} from "../../scripts/firebaseCRUD";
-import {Row} from "../shared/style/Row";
-import {Button} from "../shared/style/Button";
 import {caseString} from "../../scripts/formatText";
 import {Text} from "../shared/style/Text";
 import {LoadItems} from "../shared/DataLoader";
-import {Wrapper} from "../shared/style/Wrapper";
+import Grid from "@material-ui/core/Grid";
+import {Button} from "../shared/style/Button";
 
 /**
  *  Iterates a list of items that does not exist in the reference list document (in firebase)
@@ -24,7 +23,7 @@ const NewItems = () => {
     }
 
     return (
-        <Wrapper main>
+        <>
             {
                 Data.new_items.map(item => {
                     return (
@@ -32,24 +31,29 @@ const NewItems = () => {
                         //todo refactor till ref ?
 
                         <form key={'new_items_form_' + item} onChange={e => handleUpdate(e, item)}>
-                            <Row>
-                                <Text newItem>
-                                    {caseString(item)}
-                                </Text>
-                                <NewItemOptions key={'new_items_new_items_options_' + item}/>
-                                <Button rightAligned onClick={(e) => {
-                                    e.preventDefault();
-                                    Delete(item, 'new_items');
-                                    Data.updateData('items');
-                                }}>
-                                    Delete
-                                </Button>
-                            </Row>
+                            <Grid container>
+
+                                <Grid item xs>
+                                    <Text newItem>
+                                        {caseString(item)}
+                                    </Text>
+                                </Grid>
+                                <Grid item>
+                                    <NewItemOptions key={'new_items_new_items_options_' + item}/>
+                                    <Button variant={"contained"} disableElevation size="small"  onClick={(e) => {
+                                        e.preventDefault();
+                                        Delete(item, 'new_items');
+                                        Data.updateData('newItems');
+                                    }}>
+                                        Delete
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </form>
                     );
                 })
             }
-        </Wrapper>
+        </>
     )
 }
 

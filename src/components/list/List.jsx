@@ -1,11 +1,12 @@
 import React, {useContext} from "react";
 import AddItem from "./AddItem";
-import {Button} from "../shared/style/Button";
-import {Wrapper} from "../shared/style/Wrapper";
 import Category from "./Category";
 import {LoadItems} from "../shared/DataLoader";
 import {caseString} from "../../scripts/formatText";
 import {Text} from "../shared/style/Text";
+import AppBar from "@material-ui/core/AppBar";
+import {Button} from "../shared/style/Button";
+import Drawer from "../Drawer";
 
 
 const List = () => {
@@ -20,8 +21,31 @@ const List = () => {
         });
     }
 
+    const appBarStyle = {
+        top: 'auto',
+        bottom: 0,
+        padding: "0 16px 16px 16px",
+        backgroundColor: "white"
+    }
+    const importStyle = {
+        marginBottom: "80px",
+        textAlign: "center",
+        width: "100%",
+        marginTop: "40px"
+    }
+
+    const DrawerContent = [
+        <Button variant={"contained"} disableElevation size="small"  style={importStyle} onClick={() => {
+            Data.importFromTodoist()
+        }}>
+            Import from Todoist
+        </Button>
+    ]
+
     return (
-        <Wrapper main>
+        <>
+            <Drawer anchor={'right'} content={DrawerContent}/>
+
             <Text groceryListHeadline>
                 Grocery list
             </Text>
@@ -31,14 +55,10 @@ const List = () => {
                 ))
             }
 
-            <Button rightAligned onClick={() => {
-                Data.importFromTodoist()
-            }
-            }>
-                Import from Todoist
-            </Button>
-            <AddItem/>
-        </Wrapper>
+            <AppBar position="fixed" style={appBarStyle}>
+                <AddItem/>
+            </AppBar>
+        </>
     );
 }
 

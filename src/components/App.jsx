@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
 import {Text} from "./shared/style/Text";
-import {Menu} from "./menu/style/Menu";
-import MenuIcon from "./menu/MenuIcon";
+import Drawer from "./Drawer";
 
 //tests
 // add item
@@ -41,47 +40,32 @@ import MenuIcon from "./menu/MenuIcon";
 // add error mesages
 // seperate index export files
 // add 404
+// background on addItem form
+// recently added section?
 
 
 export const App = () => {
-    const [showMenu, setShowMenu] = useState(false)
-    const [menuSymbol, setMenuSymbol] = useState('›')
-
-    const handleOnMenuClick = () => {
-        if (!showMenu) {
-            setShowMenu(true);
-            setMenuSymbol('‹')
-        } else {
-            setShowMenu(false);
-            setMenuSymbol('›')
-        }
-    }
+    const drawerContent = [
+        <Link to="/list" style={{textDecoration: 'none'}}>
+            <Text routerLink>
+                List
+            </Text>
+        </Link>,
+        <Link to="/recipes" style={{textDecoration: 'none'}}>
+            <Text routerLink>
+                Recipes
+            </Text>
+        </Link>,
+        <Link to="/newItems" style={{textDecoration: 'none'}}>
+            <Text routerLink>
+                New items
+            </Text>
+        </Link>
+    ]
 
     return (
         <>
-            <Menu background={showMenu} onClick={()=>handleOnMenuClick()}>
-                <Text menuSymbol>
-                    {menuSymbol}
-                </Text>
-                {/*//todo hide until click*/}
-                <Link to="/list" style={{textDecoration: 'none'}}>
-                    <Text routerLink>
-                        List
-                    </Text>
-                </Link>
-
-                <Link to="/recipes" style={{textDecoration: 'none'}}>
-                    <Text routerLink>
-                        Recipes
-                    </Text>
-                </Link>
-
-                <Link to="/newItems" style={{textDecoration: 'none'}}>
-                    <Text routerLink>
-                        New items
-                    </Text>
-                </Link>
-            </Menu>
+            <Drawer anchor={'left'} content={drawerContent}/>
         </>
-    )
+    );
 }

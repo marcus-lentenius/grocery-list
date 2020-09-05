@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 
 export const Select = styled.select`
-    position: absolute;
-    right: 60px;
     border-radius: .25rem;
     border-color: #ababab;
     color: #6a6a6a;
