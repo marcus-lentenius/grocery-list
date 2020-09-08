@@ -22,3 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /.idea/
+/src/scripts/firebaseToken.js
+/src/scripts/todoistToken.js
+/src/scripts/credentials.js

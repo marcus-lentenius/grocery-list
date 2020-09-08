@@ -4,7 +4,7 @@ import {fireBase} from "../../scripts/firebase";
 import {TodoistRead} from "../../scripts/todoistCRUD";
 import {CategorizeItem} from "../../scripts/categorizeItems";
 import {caseString} from "../../scripts/formatText";
-import {scryRenderedComponentsWithType} from "react-dom/test-utils";
+import {email, password} from "../../scripts/credentials";
 
 export const LoadItems = React.createContext(null);
 
@@ -21,7 +21,7 @@ export const Loader = props => {
 
     useEffect(()=>{
         if (!isAuthenticated) {
-            fireBase.auth().signInWithEmailAndPassword('marcus@lentenius.se', 'password')
+            fireBase.auth().signInWithEmailAndPassword(email, password)
                 .then(success => {
                     setAuthenticated(true);
                     console.log('authenticated')
