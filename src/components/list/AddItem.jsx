@@ -6,6 +6,7 @@ import {Input} from "../shared/style/Input";
 import {LoadItems} from "../shared/DataLoader";
 import Grid from "@material-ui/core/Grid";
 import {Button} from "../shared/style/Button";
+import {Box} from "@material-ui/core";
 
 /**
  * Section for form to add new items to the list
@@ -66,7 +67,8 @@ const AddItem = () => {
                     -
                 </Button>
 
-                <Input addAmount value={amount} name="amount"/>
+                <Input addAmount onChange={e=>{
+                }} value={amount} name="amount"/>
 
                 <Button increaseAmount onClick={e => {
                     newItem.current.focus();

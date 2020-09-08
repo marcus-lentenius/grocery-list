@@ -48,17 +48,17 @@ import Redirect from "react-router-dom/es/Redirect";
 
 export const App = () => {
     const drawerContent = [
-        <Link to="/list" style={{textDecoration: 'none'}}>
+        <Link key={"list"} to="/list" style={{textDecoration: 'none'}}>
             <Text routerLink>
                 List
             </Text>
         </Link>,
-        <Link to="/recipes" style={{textDecoration: 'none'}}>
+        <Link key={"recipes"} to="/recipes" style={{textDecoration: 'none'}}>
             <Text routerLink>
                 Recipes
             </Text>
         </Link>,
-        <Link to="/newItems" style={{textDecoration: 'none'}}>
+        <Link key={"newItems"} to="/newItems" style={{textDecoration: 'none'}}>
             <Text routerLink>
                 New items
             </Text>
@@ -68,7 +68,7 @@ export const App = () => {
     return (
         <>
             <Drawer anchor={'left'} content={drawerContent}/>
-            <Redirect to='/recipes'/>
+            <Redirect to='/list'/>
         </>
     );
 }

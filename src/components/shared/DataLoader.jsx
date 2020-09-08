@@ -17,6 +17,7 @@ export const Loader = props => {
     const [sortingOrder, setSortingOrder] = useState(null)
     const [newItems, setNewItems] = useState(null)
     const [recipes, setRecipes] = useState(null)
+    const [history, setHistory] = useState(null)
 
     useEffect(()=>{
         if (!isAuthenticated) {
@@ -30,7 +31,6 @@ export const Loader = props => {
     },[isAuthenticated])
 
     useEffect(() => {
-        console.log('fetch?')
         if (!isLoaded && isAuthenticated) {
             fetchData()
         }
@@ -42,8 +42,9 @@ export const Loader = props => {
         await fetchSortOrder();
         await fetchReferenceList();
         await fetchItems();
-        await fetchNewItems()
-        await fetchRecipes()
+        await fetchNewItems();
+        await fetchRecipes();
+        await fetchHistory();
         setIsLoaded(true);
         console.log('Preload complete')
     }
@@ -92,6 +93,12 @@ export const Loader = props => {
         setNewItems(response.items);
         console.log('New items fetched')
     }
+    const fetchHistory = async () => {
+        console.log('Fetching History...')
+        const response = await Read('history');
+        setHistory(response.items);
+        console.log('History fetched')
+    }
 
     // //todo refactor
     const importFromTodoist = async () => {
@@ -127,11 +134,13 @@ export const Loader = props => {
         sorting_order: sortingOrder,
         new_items: newItems,
         recipes: recipes,
+        history: history,
         fetchItems: fetchItems.bind(this),
         fetchReferenceList: fetchReferenceList.bind(this),
         importFromTodoist: importFromTodoist.bind(this),
         fetchRecipes: fetchRecipes.bind(this),
-        updateData: updateData.bind(this)
+        updateData: updateData.bind(this),
+        fetchHistory: fetchHistory.bind(this)
     }
 
     return (
