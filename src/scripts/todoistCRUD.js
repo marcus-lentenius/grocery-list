@@ -1,7 +1,7 @@
+import token from "./todoistToken";
 const $ = require( "jquery" );
 
 const apiUrl = 'https://api.todoist.com/sync/v8/sync';
-const token = "a20db3a3e7de819db9fc1b3878cb2b5d606f0a17";
 let syncToken;
 
 /** Connection to a grocery list in Todoist

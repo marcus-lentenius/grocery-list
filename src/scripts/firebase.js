@@ -1,7 +1,8 @@
 import * as firebase from 'firebase'
+import token from "./firebaseToken";
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyB0YegQaogUwWG2aHi6YXmRhawpoB6yqio',
+    apiKey: token,
     authDomain: 'lent-grocery-list.firebaseapp.com',
     databaseURL: 'https://lent-grocery-list.firebaseio.com',
     projectId: 'lent-grocery-list',

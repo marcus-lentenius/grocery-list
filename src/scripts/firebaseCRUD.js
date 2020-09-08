@@ -26,10 +26,15 @@ export const Create = async (items,
         name: name,
         category: category,
         amount: amount,
-        id: getId()
+        id: getId(),
+        date: Date.now()
     }
 
     console.log('Creating item ' + JSON.stringify(item));
+
+    fireStore.collection('grocery_list').doc('history').update({
+        items: firebase.firestore.FieldValue.arrayUnion(item)
+    }).catch((e) => console.error('write error: ', e));
 
     if (items) {
         items.map(existingItem => {

@@ -63,13 +63,15 @@ const Drawer = ({anchor, content, disableClickToClose}) => {
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
                 onOpen={toggleDrawer(anchor, true)}
+                disableAutoFocus={true}
+                disableDiscovery={true}
             >
                 {anchor === 'left' ? <Button leftDrawer onClick={toggleDrawer(anchor, false)}>X</Button> : null}
                 {anchor === 'right' ? <Button rightDrawer onClick={toggleDrawer(anchor, false)}>X</Button> : null}
                 {Content(anchor)}
             </SwipeableDrawer>
         </React.Fragment>
-    )
+    );
 }
 
 export default Drawer
