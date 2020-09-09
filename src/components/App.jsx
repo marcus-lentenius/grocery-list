@@ -77,7 +77,7 @@ export const App = () => {
     return (
         <>
             <Drawer anchor={'left'} content={drawerContent}/>
-            {/*<Redirect to='/list'/>*/}
+            <Redirect to='/recipes'/>
         </>
     );
 }

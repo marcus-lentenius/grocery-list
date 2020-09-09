@@ -10,6 +10,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import {DeleteRecipe} from "../../scripts/firebaseCRUD";
 import {Text} from "../shared/style/Text";
 import {Box} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 
 const Recipes = () => {
     const Data = useContext(LoadItems);
@@ -60,9 +61,13 @@ const Recipes = () => {
     )
 
     const DrawerContent = [
-        <Box m={1}>
-            <AddRecipe/>
-            {Data.recipes.map(recipe => recipeToDelete(recipe))}
+        <Box mx={1} width="350px">
+            <Box pt="40px">
+                <AddRecipe/>
+            </Box>
+            <Box pt="40px">
+                {Data.recipes.map(recipe => recipeToDelete(recipe))}
+            </Box>
         </Box>
     ]
 

@@ -12,7 +12,13 @@ const categoryHeadline = `
     font-size: 30px;
 `
 const ingredient = `
-width: 100%;
+    margin: 0;
+    font-size: 18px;
+    font-family: Arial,serif;
+    width: 100%;
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
 `
 
 const recipeHeadline = `

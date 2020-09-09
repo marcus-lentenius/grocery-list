@@ -8,6 +8,7 @@ import {getId} from "../../scripts/idGenerator";
 import {LoadItems} from "../shared/DataLoader";
 import {Button} from "../shared/style/Button";
 import {Box} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 
 /**
  * Renders form for adding recipe
@@ -72,6 +73,7 @@ const AddRecipe = () => {
 
     return (
         <>
+            <Box mb={1}>
                 <Input recipeName
                        ref={nameRef}
                        id={"name"}
@@ -79,25 +81,27 @@ const AddRecipe = () => {
                            recipe.name = e.target.value
                        }}
                        placeholder={"Namn"}/>
+            </Box>
+            <Box mb={1}>
             {
                 ingredients.map(ingredient =>
                     <Ingredient thisIngredient={ingredient}
                                 ingredients={ingredients}
                                 setIngredients={setIngredients}/>)
             }
+            </Box>
+            <Box mb={1}>
             <AddIngredient ingredientRef={ingredientRef}
                            amountRef={amountRef}
                            handleAddIngredient={handleAddIngredient.bind(this)}/>
-            <Row>
-                <Button variant={"contained"} disableElevation size="small"  onClick={e => {
+            </Box>
+            <Box>
+                <Button onClick={e => {
                     handleSubmit(e)
                 }}>
                     Add Recipe
                 </Button>
-            </Row>
-            <Row>
-
-            </Row>
+            </Box>
         </>
     )
 }
