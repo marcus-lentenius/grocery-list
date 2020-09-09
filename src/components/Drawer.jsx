@@ -2,45 +2,34 @@ import React from "react";
 import {Button} from "./shared/style/Button";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import AppBar from "@material-ui/core/AppBar";
+import Icon from "@material-ui/core/Icon";
 
 
-const Drawer = ({anchor, content, disableClickToClose}) => {
+const Drawer = ({anchor, content, disableClickToClose, position}) => {
     const [state, setState] = React.useState({
         left: false,
-        right: false,
+        right: true,
     });
 
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
+    const toggleDrawer = (anchor, open, disableClick) => (event) => {
+        if (!disableClick) {
+            if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+                return;
+            }
+            setState({...state, [anchor]: open});
         }
-        setState({...state, [anchor]: open});
     };
 
     const Content = (anchor) => (
-        <>
-            {disableClickToClose ?
-                <>
-                    <List style={{paddingTop: "60px"}}>
-                        {content.map((link) => link)}
-                    </List>
-                    <Divider/>
-                </>
-                :
-                <div
-                    role="presentation"
-                    onClick={toggleDrawer(anchor, false)}
-                    onKeyDown={toggleDrawer(anchor, false)}
-                >
-                    <List style={{paddingTop: "60px"}}>
-                        {content.map((link) => link)}
-                    </List>
-                    <Divider/>
-                </div>
-            }
-        </>
+            <div
+                role="presentation"
+                onClick={toggleDrawer(anchor, false, disableClickToClose)}
+                onKeyDown={toggleDrawer(anchor, false, disableClickToClose)}
+                style={position}
+            >
+                    {content}
+            </div>
     );
 
     const appBar = {
@@ -49,16 +38,28 @@ const Drawer = ({anchor, content, disableClickToClose}) => {
         boxShadow: "none",
         padding: "8px",
         position: "fixed",
-        backgroundColor: "white",
-        borderBottom: "1px solid gray",
+        backgroundColor: "#f4f4f4",
     }
 
     return (
         <React.Fragment key={anchor}>
-            {anchor === 'left' ? <Button leftDrawer onClick={toggleDrawer(anchor, true)}>☰</Button> : null}
-            {anchor === 'right' ? <Button rightDrawer onClick={toggleDrawer(anchor, true)}>☰</Button> : null}
+            {anchor === 'left' ?
+                <Button leftDrawer onClick={toggleDrawer(anchor, true)}>
+                    <Icon>
+                        menu
+                    </Icon>
+                </Button>
+                : null
+            }
+            {anchor === 'right' ?
+                <Button rightDrawer onClick={toggleDrawer(anchor, true)}>
+                    <Icon>
+                        menu
+                    </Icon>
+                </Button> : null}
             <AppBar position="fixed" style={appBar}/>
             <SwipeableDrawer
+                hysteresis={0.10}
                 anchor={anchor}
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
@@ -66,8 +67,6 @@ const Drawer = ({anchor, content, disableClickToClose}) => {
                 disableAutoFocus={true}
                 disableDiscovery={true}
             >
-                {anchor === 'left' ? <Button leftDrawer onClick={toggleDrawer(anchor, false)}>X</Button> : null}
-                {anchor === 'right' ? <Button rightDrawer onClick={toggleDrawer(anchor, false)}>X</Button> : null}
                 {Content(anchor)}
             </SwipeableDrawer>
         </React.Fragment>

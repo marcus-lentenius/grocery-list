@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
-import {CheckBox} from "./style/CheckBox";
+import {CheckBox} from "../shared/style/CheckBox";
 import {Row} from "../shared/style/Row";
-import {Delete} from "../../scripts/firebaseCRUD";
+import {CreateHistoryItem, Delete} from "../../scripts/firebaseCRUD";
 import {Text} from "../shared/style/Text";
 import {LoadItems} from "../shared/DataLoader";
 
@@ -14,6 +14,7 @@ const Item = ({item}) => {
                 {item.amount === 1 ? null : item.amount} {item.name}
             </Text>
             <CheckBox onClick={() => {
+                CreateHistoryItem(item)
                 Delete(item, 'items');
                 Data.fetchItems();
                 Data.fetchHistory();

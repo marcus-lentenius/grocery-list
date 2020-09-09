@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {Text} from "./shared/style/Text";
 import Drawer from "./Drawer";
-import List from "./list/List";
+import Box from "@material-ui/core/Box";
 import Redirect from "react-router-dom/es/Redirect";
 
 //tests
@@ -44,31 +44,40 @@ import Redirect from "react-router-dom/es/Redirect";
 // add 404
 // background on addItem form
 // recently added section?
+// todo shorten onClick single function
+//todo new Item caseString category
+//todo remove suggestions item after added
+//todo remove history item after added
 
+// <Box height="100vh" display="flex" alignItems="flex-end">
 
 export const App = () => {
     const drawerContent = [
-        <Link key={"list"} to="/list" style={{textDecoration: 'none'}}>
-            <Text routerLink>
-                List
-            </Text>
-        </Link>,
-        <Link key={"recipes"} to="/recipes" style={{textDecoration: 'none'}}>
-            <Text routerLink>
-                Recipes
-            </Text>
-        </Link>,
-        <Link key={"newItems"} to="/newItems" style={{textDecoration: 'none'}}>
-            <Text routerLink>
-                New items
-            </Text>
-        </Link>
+        <Box key={"app_drawer_content"} height="85vh" width="200px" display="flex" alignItems="flex-end">
+            <Box width={1}>
+                <Link key={"list"} to="/list" style={{textDecoration: 'none'}}>
+                    <Text routerLink>
+                        List
+                    </Text>
+                </Link>
+                <Link key={"recipes"} to="/recipes" style={{textDecoration: 'none'}}>
+                    <Text routerLink>
+                        Recipes
+                    </Text>
+                </Link>
+                <Link key={"newItems"} to="/newItems" style={{textDecoration: 'none'}}>
+                    <Text routerLink>
+                        New items
+                    </Text>
+                </Link>
+            </Box>
+        </Box>
     ]
 
     return (
         <>
             <Drawer anchor={'left'} content={drawerContent}/>
-            <Redirect to='/list'/>
+            {/*<Redirect to='/list'/>*/}
         </>
     );
 }

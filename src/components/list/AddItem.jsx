@@ -46,7 +46,7 @@ const AddItem = () => {
     }
 
     return (
-        <Grid container style={sticky}>
+        <Grid container style={sticky} spacing={1}>
             <Grid item xs>
                 <Input addItem ref={newItem} onKeyPress={e => {
                     if (e.key === "Enter") {
@@ -55,7 +55,7 @@ const AddItem = () => {
                 }}/>
             </Grid>
 
-            <Grid item>
+            <Grid item style={{maxHeight: "32px"}}>
                 <Button decreaseAmount onClick={e => {
                     newItem.current.focus();
                     e.preventDefault();
@@ -78,6 +78,9 @@ const AddItem = () => {
                 }}>
                     +
                 </Button>
+            </Grid>
+
+            <Grid item>
                 <Button variant={"contained"} disableElevation size="small" onClick={() => handleSubmit()}>
                     Add
                 </Button>

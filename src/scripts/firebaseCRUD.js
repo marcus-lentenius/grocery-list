@@ -14,7 +14,18 @@ export const DeleteRecipe = async (recipe) => {
     }).catch((e) => console.error('delete error: ', e));
 }
 
+
+
 //todo ta bort array? param items
+export const CreateHistoryItem = async (item) => {
+
+    console.log('Creating History item ' + JSON.stringify(item));
+
+    fireStore.collection('grocery_list').doc('history').update({
+        items: firebase.firestore.FieldValue.arrayUnion(item)
+    }).catch((e) => console.error('write error: ', e));
+};
+
 export const Create = async (items,
                              {
                                  name,
@@ -32,9 +43,9 @@ export const Create = async (items,
 
     console.log('Creating item ' + JSON.stringify(item));
 
-    fireStore.collection('grocery_list').doc('history').update({
-        items: firebase.firestore.FieldValue.arrayUnion(item)
-    }).catch((e) => console.error('write error: ', e));
+    // fireStore.collection('grocery_list').doc('history').update({
+    //     items: firebase.firestore.FieldValue.arrayUnion(item)
+    // }).catch((e) => console.error('write error: ', e));
 
     if (items) {
         items.map(existingItem => {
