@@ -48,7 +48,7 @@ export const Loader = props => {
         setIsLoaded(true);
         console.log('Preload complete')
     }
-
+//todo remove or pass only this one to context?
     const updateData = async (group) => {
         //todo enums?
         switch (group) {
@@ -140,7 +140,8 @@ export const Loader = props => {
         importFromTodoist: importFromTodoist.bind(this),
         fetchRecipes: fetchRecipes.bind(this),
         updateData: updateData.bind(this),
-        fetchHistory: fetchHistory.bind(this)
+        fetchHistory: fetchHistory.bind(this),
+        fetchNewItems: fetchNewItems.bind(this)
     }
 
     return (

@@ -27,26 +27,13 @@ import Box from "@material-ui/core/Box";
 
 //fixme
 // stop marking when double click buttons
-// order newItem categories
-// routing & actions
-// confirmation when deleting recipe
 // undo categorizing newitems
 // add posibility to edit existing recipe?
-// caseString() in adding recipe
 // clear items in todoist after import
-// keep items in recipes after added to list?
-// add item suggestions
-// external context
 // add error mesages
 // seperate index export files
 // add 404
-// background on addItem form
-// recently added section?
-// shorten onClick single function
-// new Item caseString category
-// remove suggestions item after added
-// remove history item after added
-// add info flash "item added from recipe" when adding items from recipe
+// shorten onClick single line function
 
 // <Box height="100vh" display="flex" alignItems="flex-end">
 
@@ -76,7 +63,7 @@ export const App = () => {
     return (
         <>
             <Drawer anchor={'left'} content={drawerContent}/>
-            <Redirect to='/recipes'/>
+            <Redirect to='/list'/>
         </>
     );
 }
