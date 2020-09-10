@@ -42,36 +42,46 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
         setIngredients(arr)
     }
 
+    const UpdateableIngredient = () => (
+        <Grid container spacing={1}>
+            <Grid item xs>
+                <Input addItem
+                       autoComplete="off"
+                       ref={updateItem}
+                       defaultValue={caseString(thisIngredient.name)}
+                       onChange={(e) => thisIngredient.name = caseString(e.target.value)}/>
+            </Grid>
+            <Grid item>
+                <Button variant={"contained"} disableElevation size="small" decreaseAmount
+                        onClick={() => handleDecreaseAmount()}>
+                    -
+                </Button>
+
+                <Input addAmount
+                       autoComplete="off"
+                       ref={amount}
+                       value={thisIngredient.amount}/>
+
+                <Button variant={"contained"} disableElevation size="small" increaseAmount
+                        onClick={() => handleIncreaseAmount()}>
+                    +
+                </Button>
+            </Grid>
+            <Grid item>
+                <Button variant={"contained"} disableElevation size="small" onClick={() => {
+                    setUpdatable(false)
+                }}>Apply</Button>
+            </Grid>
+        </Grid>
+    );
+
     return (
-        <Grid container>
+        <>
             {
                 isUpdateable ?
-                    <>
-                        <Grid item xs>
-                            <Input addItem
-                                   ref={updateItem}
-                                   defaultValue={caseString(thisIngredient.name)}
-                                   onChange={(e) => thisIngredient.name = e.target.value}/>
-                        </Grid>
-
-                        <Grid item>
-                            <Button variant={"contained"} disableElevation size="small"  decreaseAmount onClick={() => handleDecreaseAmount()}>
-                                -
-                            </Button>
-
-                            <Input addAmount ref={amount} value={thisIngredient.amount}/>
-
-                            <Button variant={"contained"} disableElevation size="small"  increaseAmount onClick={() => handleIncreaseAmount()}>
-                                +
-                            </Button>
-
-                            <Button variant={"contained"} disableElevation size="small"  onClick={() => {
-                                setUpdatable(false)
-                            }}>Apply</Button>
-                        </Grid>
-                    </>
+                    <UpdateableIngredient/>
                     :
-                    <>
+                    <Grid container spacing={1}>
                         <Grid item xs>
                             <Text ingredient key={thisIngredient.id}
                                   onClick={() => setUpdatable(true)}>
@@ -79,13 +89,14 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
                             </Text>
                         </Grid>
                         <Grid item>
-                            <Button variant={"contained"} disableElevation size="small"  onClick={() => handleDeleteIngredient()}>
+                            <Button variant={"contained"} disableElevation size="small"
+                                    onClick={() => handleDeleteIngredient()}>
                                 Delete
                             </Button>
                         </Grid>
-                    </>
+                    </Grid>
             }
-        </Grid>
+        </>
     )
 }
 

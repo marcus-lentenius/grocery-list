@@ -10,11 +10,14 @@ import {LoadItems} from "../shared/DataLoader";
 const NewItemOptions = () => {
     const Data = useContext(LoadItems);
 
+    const referenceList = Object.keys(Data.reference_list);
+    referenceList.sort()
+
     return (
         <Select>
             <option>Kategori</option>
             {
-                Object.keys(Data.reference_list).map(category =>
+                referenceList.map(category =>
                     <option key={'new_items_options_' + category}>{caseString(category)}</option>
                 )
             }

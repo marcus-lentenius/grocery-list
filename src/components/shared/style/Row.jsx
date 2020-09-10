@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 
 const groceryList = `
+    width: calc(100% - 10px);
     position: relative;
     border-bottom: 1px solid #efeded;
     display: flex;
         margin-top: 10px;
         text-align: right;
+        margin-left: 10px;
 `
 const recipeIngredient = `
     width: 300px;

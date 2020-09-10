@@ -1,28 +1,24 @@
 import React, {useContext, useEffect, useState} from "react";
-import AddItem from "./AddItem";
-import Category from "./Category";
 import {LoadItems} from "../shared/DataLoader";
 import {caseString} from "../../scripts/formatText";
 import {Text} from "../shared/style/Text";
-import AppBar from "@material-ui/core/AppBar";
 import {Button} from "../shared/style/Button";
-import Drawer from "../Drawer";
 import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import {History} from "./History";
+import Drawer from "../Drawer";
+import Category from "./Category";
+import AppBar from "@material-ui/core/AppBar";
+import AddItem from "./AddItem";
+import SuggestedItem from "./SuggestedItem";
 
 
 const List = () => {
     const Data = useContext(LoadItems);
     const [suggestionList, setSuggestionList] = useState([])
-    const [historyList, setHistoryList] = useState([])
-
-    //todo create date seperator in history
 
     //todo cleanup
     useEffect(() => {
-        setHistoryList(Data.history.sort((a, b) => {
-            return b.date - a.date;
-        }))
-
         const arr = Data.history
         arr.sort()
         let counts = {};
@@ -48,91 +44,49 @@ const List = () => {
         });
     }
 
+    //todo refactor for consistency
     const appBarStyle = {
         top: 'auto',
         bottom: 0,
         padding: "0 16px 16px 16px",
         backgroundColor: "white"
     }
-    const importStyle = {
-        marginBottom: "80px",
-        textAlign: "center",
-        width: "100%",
-        marginTop: "40px"
-    }
-
-    const formatDate = (ms) => {
-        const date = new Date(ms);
-
-        let day = date.getDate();
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-
-        return day + "/" + month + "/" + year;
-    }
-
-    const RenderHistory = () => {
-        let date;
-        const list = []
-        {
-            historyList.map(item => {
-
-                if (date === formatDate(item.date)) {
-                    list.push(
-                        <Text key={'history_' + item.id}>
-                            {item.name}
-                        </Text>
-                    );
-                } else {
-                    date = formatDate(item.date);
-                    if (list.length === 0) {
-                        list.push(
-                            <Text key={'history_' + item.id}>
-                                {item.name}
-                            </Text>
-                        );
-                    } else {
-                        list.push(
-                            <>
-                                <Text key={date}>
-                                    {date}
-                                </Text>
-                                <Text key={'history_' + item.id}>
-                                    {item.name}
-                                </Text></>
-                        );
-                    }
-                }
-            })
-        }
-        return (
-            list.map(item => item)
-        )
-    }
-
+//todo rename text  historyDate
     const DrawerContent = [
-        <>
-            <Button variant={"contained"} disableElevation size="small" style={importStyle} onClick={() => {
-                Data.importFromTodoist()
-            }}>
-                Import from Todoist
-            </Button>
-            <Text>History:</Text>
-            <Box>
-                <RenderHistory/>
-            </Box>
-            <Text>Suggestions:</Text>
-            <Box>
-                {suggestionList.map(item =>
-                    <Text key={"suggestion_" + item.name}>{item.name} {item.amount}</Text>
-                )}
-            </Box>
-        </>
-    ]
+        <Box key={"list_drawer_content"} mx={1} width={300} maxWidth={300}>
 
+            <Box mb="2vh" width={1} height="23vh" display="flex" justifyContent="center" alignItems="flex-end">
+                <Button onClick={Data.importFromTodoist}>
+                    Import from Todoist
+                </Button>
+            </Box>
+
+            <Box px="10px" pt="10px" height="25vh" overflow="auto" border={1} borderRadius={5}>
+                <Text historyDate>Suggestions:</Text>
+                {suggestionList.map(item =>
+                    <SuggestedItem key={"suggestion_" + item.name} item={item}/>
+                )}
+
+            </Box>
+            <Box bgcolor="#f7f7f7" mt="1vh" px="10px" pt="10px" height="49vh" overflow="auto" border={1} borderRadius={5}>
+                 <Text historyDate>History:</Text>
+
+                <Grid container>
+                    <History/>
+                </Grid>
+            </Box>
+        </Box>
+    ]
+//todo edit position prop
     return (
         <>
-            <Drawer anchor={'right'} content={DrawerContent}/>
+            <Drawer anchor={'right'} content={DrawerContent} disableClickToClose={true} position={{
+                height: "100vh",
+                position: "relative",
+                display: "flex",
+                verticalAlign: "bottom",
+                alignItems: "flex-end"
+            }}/>
 
             <Text groceryListHeadline>
                 Grocery list

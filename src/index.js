@@ -8,7 +8,8 @@ import {App} from "./components/App";
 import Recipes from "./components/recipes/Recipes";
 import Container from "@material-ui/core/Container";
 
-const routing = (
+//todo mat ui own props
+const Routing = (
     <Loader>
         <BrowserRouter>
             <Container style={{top: "50px", position: "relative"}}>
@@ -22,6 +23,6 @@ const routing = (
 )
 
 ReactDOM.render(
-    routing,
+    Routing,
     document.getElementById('root')
 );

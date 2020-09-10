@@ -17,11 +17,11 @@ const NewItems = () => {
     const Data = useContext(LoadItems);
 
     const handleUpdate = (e, item) => {
-        AddItemToReferenceList(item, e.target.value)
+        AddItemToReferenceList(item, e.target.value.toLowerCase())
         Delete(item, 'new_items');
         Data.updateData('newItems')
     }
-
+//todo <text> {caseString(item)? upload already cased?
     return (
         <>
             {
@@ -43,7 +43,8 @@ const NewItems = () => {
                                     <Button variant={"contained"} disableElevation size="small"  onClick={(e) => {
                                         e.preventDefault();
                                         Delete(item, 'new_items');
-                                        Data.updateData('newItems');
+                                        Data.fetchNewItems();
+                                        Data.fetchReferenceList();
                                     }}>
                                         Delete
                                     </Button>

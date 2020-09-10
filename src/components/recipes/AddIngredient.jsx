@@ -6,9 +6,13 @@ import {Button} from "../shared/style/Button";
 
 const AddIngredient = ({ingredientRef,amountRef,handleAddIngredient}) => (
     <>
-        <Grid container>
+        <Grid container spacing={1}>
             <Grid item xs>
-                <Input ingredient ref={ingredientRef} id={"ingredient"} placeholder={"Ingredient"}
+                <Input ingredient
+                       autoComplete="off"
+                       ref={ingredientRef}
+                       id={"ingredient"}
+                       placeholder={"Ingredient"}
                        onKeyPress={e => {
                            if (e.key === 'Enter') {
                                handleAddIngredient()
@@ -16,13 +20,19 @@ const AddIngredient = ({ingredientRef,amountRef,handleAddIngredient}) => (
                        }}/>
             </Grid>
             <Grid item>
-                <Input ingredientAmount ref={amountRef} id={"amount"} placeholder={"Antal"}
+                <Input ingredientAmount
+                       autoComplete="off"
+                       ref={amountRef}
+                       id={"amount"}
+                       placeholder={"Antal"}
                        onKeyPress={e => {
                            if (e.key === 'Enter') {
                                handleAddIngredient()
                            }
                        }}/>
-                <Button variant={"contained"} disableElevation size="small"  onClick={e => {
+            </Grid>
+            <Grid item>
+                <Button onClick={e => {
                     handleAddIngredient();
                 }}>
                     Add
