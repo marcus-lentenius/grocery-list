@@ -9,7 +9,7 @@ import Icon from "@material-ui/core/Icon";
 const Drawer = ({anchor, content, disableClickToClose, position}) => {
     const [state, setState] = React.useState({
         left: false,
-        right: true,
+        right: false,
     });
 
     const toggleDrawer = (anchor, open, disableClick) => (event) => {

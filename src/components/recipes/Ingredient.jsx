@@ -46,9 +46,10 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
         <Grid container spacing={1}>
             <Grid item xs>
                 <Input addItem
+                       autoComplete="off"
                        ref={updateItem}
                        defaultValue={caseString(thisIngredient.name)}
-                       onChange={(e) => thisIngredient.name = e.target.value}/>
+                       onChange={(e) => thisIngredient.name = caseString(e.target.value)}/>
             </Grid>
             <Grid item>
                 <Button variant={"contained"} disableElevation size="small" decreaseAmount
@@ -56,7 +57,10 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
                     -
                 </Button>
 
-                <Input addAmount ref={amount} value={thisIngredient.amount}/>
+                <Input addAmount
+                       autoComplete="off"
+                       ref={amount}
+                       value={thisIngredient.amount}/>
 
                 <Button variant={"contained"} disableElevation size="small" increaseAmount
                         onClick={() => handleIncreaseAmount()}>
@@ -69,7 +73,7 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
                 }}>Apply</Button>
             </Grid>
         </Grid>
-    )
+    );
 
     return (
         <>

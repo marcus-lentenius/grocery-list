@@ -9,6 +9,7 @@ import {LoadItems} from "../shared/DataLoader";
 import {Button} from "../shared/style/Button";
 import {Box} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import {caseString} from "../../scripts/formatText";
 
 /**
  * Renders form for adding recipe
@@ -46,7 +47,7 @@ const AddRecipe = () => {
             console.log('inget namn')
         } else {
             ingredients.push({
-                name: ingredient.value,
+                name: caseString(ingredient.value,),
                 amount: parseInt(amount.value === '' ? 1 : amount.value),
             });
 
@@ -58,7 +59,7 @@ const AddRecipe = () => {
 
     const handleSubmit = async () => {
         if (nameRef.current.value) {
-            recipe.name = nameRef.current.value;
+            recipe.name = caseString(nameRef.current.value);
         } else {
             console.log('inget namn på recept')
         }
@@ -75,6 +76,7 @@ const AddRecipe = () => {
         <>
             <Box mb={1}>
                 <Input recipeName
+                       autoComplete="off"
                        ref={nameRef}
                        id={"name"}
                        onChange={(e) => {

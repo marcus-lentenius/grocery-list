@@ -13,7 +13,6 @@ border-top-left-radius: 0;
 border-bottom-left-radius: 0;
     `
 
-
 const base = `
     border: 1px solid #ababab;
     font: 400 13.3333px Arial;
@@ -56,6 +55,13 @@ const rightAligned = `
     position: absolute;
     display: inline-flex;
 `
+
+const confirmDeleteRecipe = `
+    right: 8px;
+    position: absolute;
+    display: inline-flex;
+`
+
 export const Button = styled.div`
 ${props =>
     props.decreaseAmount ? base + decreaseAmount :
@@ -63,6 +69,7 @@ ${props =>
     props.rightAligned ? rightAligned + base :
     props.leftDrawer ? leftDrawer + drawer :
     props.rightDrawer ? rightDrawer + drawer :
+    props.confirmDeleteRecipe ? confirmDeleteRecipe + base :
     props ? base : null
 }
 `

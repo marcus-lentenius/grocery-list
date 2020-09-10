@@ -6,7 +6,6 @@ import {Input} from "../shared/style/Input";
 import {LoadItems} from "../shared/DataLoader";
 import Grid from "@material-ui/core/Grid";
 import {Button} from "../shared/style/Button";
-import {Box} from "@material-ui/core";
 
 /**
  * Section for form to add new items to the list
@@ -48,11 +47,14 @@ const AddItem = () => {
     return (
         <Grid container style={sticky} spacing={1}>
             <Grid item xs>
-                <Input addItem ref={newItem} onKeyPress={e => {
-                    if (e.key === "Enter") {
-                        handleSubmit()
-                    }
-                }}/>
+                <Input addItem
+                       autoComplete="off"
+                       ref={newItem}
+                       onKeyPress={e => {
+                           if (e.key === "Enter") {
+                               handleSubmit()
+                           }
+                       }}/>
             </Grid>
 
             <Grid item style={{maxHeight: "32px"}}>
@@ -67,8 +69,12 @@ const AddItem = () => {
                     -
                 </Button>
 
-                <Input addAmount onChange={e=>{
-                }} value={amount} name="amount"/>
+                <Input addAmount
+                       autoComplete="off"
+                       onChange={e => {
+                       }}
+                       value={amount}
+                       name="amount"/>
 
                 <Button increaseAmount onClick={e => {
                     newItem.current.focus();

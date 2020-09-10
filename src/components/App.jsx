@@ -1,10 +1,8 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {Text} from "./shared/style/Text";
 import Drawer from "./Drawer";
 import Box from "@material-ui/core/Box";
-import Redirect from "react-router-dom/es/Redirect";
-
 //tests
 // add item
 // add
@@ -44,10 +42,11 @@ import Redirect from "react-router-dom/es/Redirect";
 // add 404
 // background on addItem form
 // recently added section?
-// todo shorten onClick single function
-//todo new Item caseString category
-//todo remove suggestions item after added
-//todo remove history item after added
+// shorten onClick single function
+// new Item caseString category
+// remove suggestions item after added
+// remove history item after added
+// add info flash "item added from recipe" when adding items from recipe
 
 // <Box height="100vh" display="flex" alignItems="flex-end">
 

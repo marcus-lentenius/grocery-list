@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import {Button} from "../shared/style/Button";
@@ -10,11 +10,12 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {Text} from "../shared/style/Text";
-import {Row} from "../shared/style/Row";
 import {LoadItems} from "../shared/DataLoader";
 import {CategorizeItem} from "../../scripts/categorizeItems";
 import {caseString} from "../../scripts/formatText";
 import {Create} from "../../scripts/firebaseCRUD";
+import Grid from "@material-ui/core/Grid";
+import ActionInfoBar from "./ActionInfoBar";
 
 const useStyles = makeStyles((theme) => ({
     expand: {
@@ -30,21 +31,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Recipe = ({recipe}) => {
-    const Data = useContext(LoadItems);
     const [expanded, setExpanded] = React.useState(false);
+
     const classes = useStyles();
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-
-    // Adds items from the recipe to the grocery list
-    const handleOnClick = (name, amount) => {
-        const category = CategorizeItem(name, Data.reference_list)
-        Create(Data.items, {name: caseString(name), category: category, amount: amount})
-        Data.fetchItems()
-    };
-
 
     return (
         <Card variant={"outlined"}>
@@ -71,13 +64,7 @@ const Recipe = ({recipe}) => {
                 <CardContent>
                     {
                         recipe.ingredients.map(ingredient => (
-                                <Row recipeIngredient>
-                                    <Text>{ingredient.amount} {ingredient.name}</Text>
-                                    <Button variant={"contained"} disableElevation size="small" onClick={(e) => {
-                                        handleOnClick(ingredient.name, ingredient.amount);
-                                        e.target.parentNode.remove()
-                                    }}>Add</Button>
-                                </Row>
+                            <ActionInfoBar name={ingredient.name} amount={ingredient.amount}/>
                             )
                         )
                     }
