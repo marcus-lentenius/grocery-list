@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
-//todo move width style to wrapper?
-
 const item = `
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
     font-size: 22px;
 `
 const categoryHeadline = `
@@ -60,7 +61,7 @@ const history = `
     font-family: Arial,serif;
     font-size: 17px;
 `
-const historyDate = `
+const mediumHeadline = `
     color: rgba(0,0,0,0.42);
     margin-top: 20px;
     letter-spacing: 4px;
@@ -76,12 +77,10 @@ const historyDate = `
     text-align: center;
 `
 
-export const Text = styled.p`
+const Text = styled.p`
 margin: 0;
 font-size: 14px;
 font-family: Arial,serif;
-
-
 
 ${props =>
     props.item ? item : '' ||
@@ -92,7 +91,9 @@ ${props =>
     props.groceryListHeadline ? groceryListHeadline : '' ||
     props.inline ? inline : '' ||
     props.history ? history : '' ||
-    props.historyDate ? historyDate : '' ||
+    props.mediumHeadline ? mediumHeadline : '' ||
     props.checkBoxContent ? checkBoxContent : ''
 };
 `
+
+export default Text

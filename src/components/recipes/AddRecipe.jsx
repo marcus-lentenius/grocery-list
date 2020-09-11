@@ -1,22 +1,17 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {Row} from "../shared/style/Row";
-import {Input} from "../shared/style/Input";
-import {CreateRecipe} from "../../scripts/firebaseCRUD";
-import AddIngredient from "./AddIngredient";
-import Ingredient from "./Ingredient";
-import {getId} from "../../scripts/idGenerator";
-import {LoadItems} from "../shared/DataLoader";
-import {Button} from "../shared/style/Button";
+
 import {Box} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import {caseString} from "../../scripts/formatText";
+
+import {Button, Input, ContextData} from "../shared";
+import {caseString, createRecipe, getId} from "../../scripts";
+import {AddIngredient, Ingredient} from "./";
 
 /**
  * Renders form for adding recipe
  */
 
 const AddRecipe = () => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
     const [ingredients, setIngredients] = useState([])
 
     const ingredientRef = useRef(null);
@@ -63,8 +58,9 @@ const AddRecipe = () => {
         } else {
             console.log('inget namn på recept')
         }
-        await CreateRecipe(recipe);
-        Data.fetchRecipes()
+        await createRecipe(recipe);
+        // Data.fetchRecipes()
+        Data.updateData('recipes')
 
         setIngredients([])
         nameRef.current.value = '';
@@ -75,8 +71,7 @@ const AddRecipe = () => {
     return (
         <>
             <Box mb={1}>
-                <Input recipeName
-                       autoComplete="off"
+                <Input autoComplete="off"
                        ref={nameRef}
                        id={"name"}
                        onChange={(e) => {
@@ -85,17 +80,17 @@ const AddRecipe = () => {
                        placeholder={"Namn"}/>
             </Box>
             <Box mb={1}>
-            {
-                ingredients.map(ingredient =>
-                    <Ingredient thisIngredient={ingredient}
-                                ingredients={ingredients}
-                                setIngredients={setIngredients}/>)
-            }
+                {
+                    ingredients.map(ingredient =>
+                        <Ingredient thisIngredient={ingredient}
+                                    ingredients={ingredients}
+                                    setIngredients={setIngredients}/>)
+                }
             </Box>
             <Box mb={1}>
-            <AddIngredient ingredientRef={ingredientRef}
-                           amountRef={amountRef}
-                           handleAddIngredient={handleAddIngredient.bind(this)}/>
+                <AddIngredient ingredientRef={ingredientRef}
+                               amountRef={amountRef}
+                               handleAddIngredient={handleAddIngredient.bind(this)}/>
             </Box>
             <Box>
                 <Button onClick={e => {

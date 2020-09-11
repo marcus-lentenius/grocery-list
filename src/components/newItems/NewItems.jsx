@@ -1,11 +1,10 @@
 import React, {useContext} from "react";
-import NewItemOptions from "./NewItemOptions";
-import {AddItemToReferenceList, Delete} from "../../scripts/firebaseCRUD";
-import {caseString} from "../../scripts/formatText";
-import {Text} from "../shared/style/Text";
-import {LoadItems} from "../shared/DataLoader";
+
 import Grid from "@material-ui/core/Grid";
-import {Button} from "../shared/style/Button";
+
+import {NewItemOptions} from "./";
+import {addItemToReferenceList, remove} from "../../scripts";
+import {Button, ContextData, Text} from "../shared";
 
 /**
  *  Iterates a list of items that does not exist in the reference list document (in firebase)
@@ -14,37 +13,35 @@ import {Button} from "../shared/style/Button";
  */
 
 const NewItems = () => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
 
     const handleUpdate = (e, item) => {
-        AddItemToReferenceList(item, e.target.value.toLowerCase())
-        Delete(item, 'new_items');
+        addItemToReferenceList(item, e.target.value.toLowerCase())
+        remove(item, 'new_items');
         Data.updateData('newItems')
     }
-//todo <text> {caseString(item)? upload already cased?
+
     return (
         <>
             {
                 Data.new_items.map(item => {
                     return (
-
-                        //todo refactor till ref ?
-
                         <form key={'new_items_form_' + item} onChange={e => handleUpdate(e, item)}>
                             <Grid container>
-
                                 <Grid item xs>
                                     <Text newItem>
-                                        {caseString(item)}
+                                        {item}
                                     </Text>
                                 </Grid>
                                 <Grid item>
                                     <NewItemOptions key={'new_items_new_items_options_' + item}/>
-                                    <Button variant={"contained"} disableElevation size="small"  onClick={(e) => {
+                                    <Button variant={"contained"} disableElevation size="small" onClick={(e) => {
                                         e.preventDefault();
-                                        Delete(item, 'new_items');
-                                        Data.fetchNewItems();
-                                        Data.fetchReferenceList();
+                                        remove(item, 'new_items');
+                                        Data.updateData('newItems')
+                                        Data.updateData('referenceList')
+                                        // Data.fetchNewItems();
+                                        // Data.fetchReferenceList();
                                     }}>
                                         Delete
                                     </Button>

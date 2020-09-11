@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import List from "./components/list/List";
 import {BrowserRouter, Route} from "react-router-dom";
-import NewItems from "./components/newItems/NewItems";
-import {Loader} from "./components/shared/DataLoader";
-import {App} from "./components/App";
-import Recipes from "./components/recipes/Recipes";
+
 import Container from "@material-ui/core/Container";
+
+import {App} from "./components/App";
+import {Recipes} from "./components/recipes";
+import {List} from "./components/list"
+import {NewItems} from "./components/newItems";
+import {Loader} from "./components/shared";
 
 //todo mat ui own props
 const Routing = (

@@ -1,7 +1,6 @@
-import React, {useContext, useRef, useState} from 'react';
+import React from 'react';
+
 import {makeStyles} from '@material-ui/core/styles';
-import clsx from 'clsx';
-import {Button} from "../shared/style/Button";
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,13 +8,11 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {Text} from "../shared/style/Text";
-import {LoadItems} from "../shared/DataLoader";
-import {CategorizeItem} from "../../scripts/categorizeItems";
-import {caseString} from "../../scripts/formatText";
-import {Create} from "../../scripts/firebaseCRUD";
-import Grid from "@material-ui/core/Grid";
-import ActionInfoBar from "./ActionInfoBar";
+
+import clsx from 'clsx';
+
+import {Text} from "../shared";
+import {ActionInfoBar} from "./";
 
 const useStyles = makeStyles((theme) => ({
     expand: {
@@ -64,7 +61,7 @@ const Recipe = ({recipe}) => {
                 <CardContent>
                     {
                         recipe.ingredients.map(ingredient => (
-                            <ActionInfoBar name={ingredient.name} amount={ingredient.amount}/>
+                                <ActionInfoBar name={ingredient.name} amount={ingredient.amount}/>
                             )
                         )
                     }

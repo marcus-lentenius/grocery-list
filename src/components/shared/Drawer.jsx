@@ -1,16 +1,28 @@
-import React from "react";
-import {Button} from "./shared/style/Button";
+import React, {useEffect, useState} from "react";
+import {Button} from "./index";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import List from "@material-ui/core/List";
 import AppBar from "@material-ui/core/AppBar";
 import Icon from "@material-ui/core/Icon";
 
 
 const Drawer = ({anchor, content, disableClickToClose, position}) => {
-    const [state, setState] = React.useState({
+    const [style, setStyle] = useState({})
+    const [state, setState] = useState({
         left: false,
         right: false,
     });
+
+    useEffect(()=>{
+        if (position === 'bottom') {
+            setStyle({
+                height: "100vh",
+                position: "relative",
+                display: "flex",
+                verticalAlign: "bottom",
+                alignItems: "flex-end"
+            })
+        }
+    },[position])
 
     const toggleDrawer = (anchor, open, disableClick) => (event) => {
         if (!disableClick) {
@@ -22,14 +34,14 @@ const Drawer = ({anchor, content, disableClickToClose, position}) => {
     };
 
     const Content = (anchor) => (
-            <div
-                role="presentation"
-                onClick={toggleDrawer(anchor, false, disableClickToClose)}
-                onKeyDown={toggleDrawer(anchor, false, disableClickToClose)}
-                style={position}
-            >
-                    {content}
-            </div>
+        <div
+            role="presentation"
+            onClick={toggleDrawer(anchor, false, disableClickToClose)}
+            onKeyDown={toggleDrawer(anchor, false, disableClickToClose)}
+            style={style}
+        >
+            {content}
+        </div>
     );
 
     const appBar = {

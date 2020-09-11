@@ -1,18 +1,15 @@
-//todo name convention?
-import {caseString} from "./formatText";
-import {CreateNewItem} from "./firebaseCRUD";
+import {caseString, createNewItem} from "./";
 
 /**
  * Cross references the item name with a list of categories and updates category prop of item
 
  * @param name
  * @param referenceList
- * @returns {string}
- * @constructor
+ * @returns category which is related to the item name provided
  */
 
-export const CategorizeItem = (name, referenceList) => {
-    let cat = '';
+const categorizeItem = (name, referenceList) => {
+    let category = '';
     let exists = false
 
     Object.values(referenceList).forEach(listOfItems => {
@@ -21,17 +18,18 @@ export const CategorizeItem = (name, referenceList) => {
         });
     });
 
-    Object.entries(referenceList).forEach(category => {
-        if (category[1].includes(name.toLowerCase())) {
-            cat = caseString(category[0]);
+    Object.entries(referenceList).forEach(cat => {
+        if (cat[1].includes(name.toLowerCase())) {
+            category = caseString(cat[0]);
             exists = true
         }
     })
 
-//todo check up on this
     if (!exists) {
-        CreateNewItem(name)
+        createNewItem(caseString(name))
     }
 
-    return cat;
+    return category;
 }
+
+export default categorizeItem

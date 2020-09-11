@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 
-export const InfoBar = styled.div`
+const InfoBar = styled.div`
     position: absolute;
     margin-top: 90vh;
     width: 90vw;
@@ -15,3 +15,5 @@ export const InfoBar = styled.div`
     border-radius: 15px;
     height: 34px;
 `
+
+export default InfoBar

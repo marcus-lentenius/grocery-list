@@ -1,38 +1,38 @@
 import React, {useContext, useEffect, useState} from "react";
-import {LoadItems} from "../shared/DataLoader";
-import {caseString} from "../../scripts/formatText";
-import {Text} from "../shared/style/Text";
-import {Button} from "../shared/style/Button";
+
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import {History} from "./History";
-import Drawer from "../Drawer";
-import Category from "./Category";
 import AppBar from "@material-ui/core/AppBar";
-import AddItem from "./AddItem";
-import SuggestedItem from "./SuggestedItem";
+
+import {Button, Drawer, ContextData, Text} from "../shared";
+import {caseString} from "../../scripts";
+import {AddItem, Category, History, SuggestedItem} from "./";
 
 
 const List = () => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
     const [suggestionList, setSuggestionList] = useState([])
 
-    //todo cleanup
     useEffect(() => {
-        const arr = Data.history
-        arr.sort()
         let counts = {};
-        arr.forEach(function (item) {
+
+        Data.history.sort()
+
+        Data.history.forEach(function (item) {
             counts[item.name] = (counts[item.name] || 0) + 1;
         });
-        const arr2 = []
+
+        const sortedHistory = []
+
         Object.entries(counts).map((key, index) => {
-            arr2.push({name: key[0], amount: key[1]});
+            sortedHistory.push({name: key[0], amount: key[1]});
         })
-        const arr3 = arr2.sort((a, b) => {
+
+        sortedHistory.sort((a, b) => {
             return b.amount - a.amount;
         });
-        setSuggestionList(arr3)
+
+        setSuggestionList(sortedHistory)
     }, [Data.history])
 
     const sortingOrder = Data.sorting_order.map(category => caseString(category))
@@ -51,7 +51,7 @@ const List = () => {
         padding: "0 16px 16px 16px",
         backgroundColor: "white"
     }
-//todo rename text  historyDate
+
     const DrawerContent = [
         <Box key={"list_drawer_content"} mx={1} width={300} maxWidth={300}>
 
@@ -62,14 +62,15 @@ const List = () => {
             </Box>
 
             <Box px="10px" pt="10px" height="25vh" overflow="auto" border={1} borderRadius={5}>
-                <Text historyDate>Suggestions:</Text>
+                <Text mediumHeadline>Suggestions:</Text>
                 {suggestionList.map(item =>
                     <SuggestedItem key={"suggestion_" + item.name} item={item}/>
                 )}
 
             </Box>
-            <Box bgcolor="#f7f7f7" mt="1vh" px="10px" pt="10px" height="49vh" overflow="auto" border={1} borderRadius={5}>
-                 <Text historyDate>History:</Text>
+            <Box bgcolor="#f7f7f7" mt="1vh" px="10px" pt="10px" height="49vh" overflow="auto" border={1}
+                 borderRadius={5}>
+                <Text mediumHeadline>History:</Text>
 
                 <Grid container>
                     <History/>
@@ -77,16 +78,10 @@ const List = () => {
             </Box>
         </Box>
     ]
-//todo edit position prop
+
     return (
         <>
-            <Drawer anchor={'right'} content={DrawerContent} disableClickToClose={true} position={{
-                height: "100vh",
-                position: "relative",
-                display: "flex",
-                verticalAlign: "bottom",
-                alignItems: "flex-end"
-            }}/>
+            <Drawer anchor={'right'} content={DrawerContent} disableClickToClose={true} position={"bottom"}/>
 
             <Text groceryListHeadline>
                 Grocery list

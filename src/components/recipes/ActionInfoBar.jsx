@@ -1,27 +1,24 @@
-import React, {useContext, useRef, useState} from "react";
-import {InfoBar} from "./style/InfoBar";
-import Grid from "@material-ui/core/Grid";
-import {Text} from "../shared/style/Text";
-import {Button} from "../shared/style/Button";
+import React, {useContext, useState} from "react"
+
 import Fade from "@material-ui/core/Fade";
+import Grid from "@material-ui/core/Grid";
 import Popper from "@material-ui/core/Popper";
-import {CategorizeItem} from "../../scripts/categorizeItems";
-import {LoadItems} from "../shared/DataLoader";
-import Box from "@material-ui/core/Box";
-import {unmountComponentAtNode} from "react-dom";
-import {Create} from "../../scripts/firebaseCRUD";
-import {caseString} from "../../scripts/formatText";
+
+import {InfoBar} from "./";
+import {ContextData, Text, Button} from "../shared";
+import {caseString, categorizeItem, create} from "../../scripts";
 
 
 const ActionInfoBar = ({amount, name}) => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
     const [open, setOpen] = useState(false)
 
     // Adds items from the recipe to the grocery list
     const handleOnClick = (name, amount) => {
-        const category = CategorizeItem(name, Data.reference_list);
-        Create(Data.items, {name: caseString(name), category: category, amount: amount})
-        Data.fetchItems()
+        const category = categorizeItem(name, Data.reference_list);
+        create(Data.items, {name: caseString(name), category: category, amount: amount})
+        Data.updateData('items')
+        // Data.fetchItems()
         setOpen(true);
         setTimeout(() => {
             setOpen(false)
@@ -39,21 +36,21 @@ const ActionInfoBar = ({amount, name}) => {
                 }}>
                     Add
                 </Button>
-                    <Popper open={open} transition style={{
-                        position: "unset",
-                        top: "unset",
-                        left: "unset"
-                    }}>
-                        {({TransitionProps}) => (
-                            <Fade {...TransitionProps} timeout={350}>
-                                <InfoBar>
-                                    <Text history>
-                                        {name} added to list
-                                    </Text>
-                                </InfoBar>
-                            </Fade>
-                        )}
-                    </Popper>
+                <Popper open={open} transition style={{
+                    position: "unset",
+                    top: "unset",
+                    left: "unset"
+                }}>
+                    {({TransitionProps}) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                            <InfoBar>
+                                <Text history>
+                                    {name} added to list
+                                </Text>
+                            </InfoBar>
+                        </Fade>
+                    )}
+                </Popper>
             </Grid>
         </Grid>
     )
