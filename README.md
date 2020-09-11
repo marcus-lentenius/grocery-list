@@ -1,13 +1,12 @@
 
-A private grocery list web app with so far single purpose of simplifying a trip to the store.
-
+A private grocery list web app with so far a single purpose of simplifying a trip to the store.
 Primary function is to automatically sort the added items/products in the list after a reference list so they appear in the same manner the isles are placed in a store (with categories/isles and currently about 900 products).
+Minor functionality added so far is:
+-Possibility to add recipe presets for adding a whole list of ingredients in respective recipe(or whatever preset you'd like).
+-Alist of suggested items/products to add based on the history of the amount of completed items/products(future functionality is to base the suggestions based on the time difference of between the time of completion for example buy toothpaste every other month).
+-If an item/product is not in the reference list you can manually add it to the category of your choice(future functionality is the freely add/remove items and categories).
+-Import of items/products from Todoist (which me and my wife currently use) until this app is stable enough.
 
-Minor funtionallity added so far is:
- - Possibility to add recipe presets for adding a whole list of ingredients in respective recipe(or whatever preset you'd like).
- - A list of suggested items/products to add based on history of amount of completed items/products(future funtionality is to base the suggestions based on the time difference      of between the time of completion for example buy toothpaste every other month).
- - If a item/product is not in the referenc list you can manually add it to the category of your choice(future functionality is the freely add/remove items and categories).
- - Import of items/products from Todoist (which me and my wife currently use) until this app is stable enough.
  
 
 
