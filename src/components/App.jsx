@@ -16,6 +16,8 @@ import Box from "@material-ui/core/Box";
 // tabindex in recipes drawer
 // fix key props in recipe drawer
 // clear new items and sort by date
+// limit amount of suggested items
+// loading screen
 
 export const App = () => {
     const drawerContent = [

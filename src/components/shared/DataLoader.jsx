@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from "react";
 
 import {caseString, categorizeItem, create, email, fireBase, password, read, readFromTodoist} from "../../scripts";
+import LoadingScreen from "./LoadingScreen";
 
 export const ContextData = React.createContext(null);
+
+//todo split up?
 
 export const Loader = props => {
     const [isAuthenticated, setAuthenticated] = useState(false)
@@ -149,7 +152,7 @@ export const Loader = props => {
         <>
             {isLoaded ? <ContextData.Provider value={state}>
                 {props.children}
-            </ContextData.Provider> : <p> loading </p>}
+            </ContextData.Provider> : <LoadingScreen/>}
         </>
     );
 };
