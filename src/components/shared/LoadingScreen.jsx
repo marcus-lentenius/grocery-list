@@ -8,7 +8,7 @@ const LoadingScreen = () => {
     return (
         <Grid container style={{height: "100vh"}}>
             <Grid container justify={"center"} alignItems={"flex-end"}>
-                <CircularProgress size={100} color="secondary"/>
+                <CircularProgress size={100} color="primary"/>
             </Grid>
             <Grid container justify={"center"}>
                 <Text groceryListHeadline>Loading</Text>
