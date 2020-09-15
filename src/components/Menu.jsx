@@ -3,6 +3,8 @@ import {Link, Redirect} from "react-router-dom";
 import {Text} from "./shared";
 import Drawer from "./shared/Drawer";
 import Box from "@material-ui/core/Box";
+import Button from "./shared/style/Button";
+import {fireBase} from "../scripts";
 
 //fixme
 // stop marking when double click buttons
@@ -19,9 +21,21 @@ import Box from "@material-ui/core/Box";
 // limit amount of suggested items
 // loading screen
 
-export const App = () => {
+const Menu = () => {
+    const logOut = () => {
+        fireBase.auth().signOut().then(function () {
+            // Sign-out successful.
+            window.location.reload()
+        }).catch(function (error) {
+            // An error happened.
+        });
+    }
+
     const drawerContent = [
         <Box key={"app_drawer_content"} height="85vh" width="200px" display="flex" alignItems="flex-end">
+            <Box m="10px" position="absolute" top="0">
+                <Button onClick={logOut}>Log out</Button>
+            </Box>
             <Box width={1}>
                 <Link key={"list"} to="/list" style={{textDecoration: 'none'}}>
                     <Text routerLink>
@@ -49,3 +63,5 @@ export const App = () => {
         </>
     );
 }
+
+export default Menu
