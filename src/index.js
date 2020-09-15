@@ -8,12 +8,15 @@ import {List} from "./components/list"
 import {NewItems} from "./components/newItems";
 import {Loader} from "./components/shared";
 import {fireBase} from "./scripts";
-import {Menu} from "./components/";
-import {LogIn} from "./components/";
+import {LogIn, Menu} from "./components/";
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
+import purple from "@material-ui/core/colors/purple";
+import green from "@material-ui/core/colors/green";
 
 // todo mat ui own props
 const App = () => {
     const [isAuthenticated, setAuthenticated] = useState(false)
+
 
     useEffect(() => {
         fireBase.auth().getRedirectResult().then(function (result) {
@@ -28,6 +31,7 @@ const App = () => {
     }, [isAuthenticated])
 
     return (
+
         <Container style={{top: "50px", position: "relative"}}>
             {isAuthenticated ?
                 <BrowserRouter>
@@ -45,7 +49,20 @@ const App = () => {
     );
 }
 
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#a5d6a7",
+        },
+        secondary: {
+            main: "#c8e6c9",
+        },
+    },
+});
+
 ReactDOM.render(
-    <App/>,
+    <MuiThemeProvider theme={theme}>
+        <App/>
+    </MuiThemeProvider>,
     document.getElementById('root')
 );

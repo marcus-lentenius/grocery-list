@@ -6,12 +6,12 @@ import Box from "@material-ui/core/Box";
 
 import {ContextData, Text} from "../shared";
 import {createHistoryItem, remove} from "../../scripts";
-
+//todo bordercolor "secondary"
 const Item = ({item}) => {
     const Data = useContext(ContextData);
     return (
         <Box
-            borderColor="grey.200"
+            borderColor="#c8e6c9"
             borderTop={1}
             pl={2}>
 
@@ -24,6 +24,7 @@ const Item = ({item}) => {
                 <Grid item>
                     <Icon
                         fontSize={"large"}
+                        color={"primary"}
                         onClick={() => {
                             createHistoryItem(item)
                             remove(item, 'items');

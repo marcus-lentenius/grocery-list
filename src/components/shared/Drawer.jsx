@@ -5,11 +5,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Icon from "@material-ui/core/Icon";
 
 
-const Drawer = ({anchor, content, disableClickToClose, position}) => {
+const Drawer = ({children, anchor, disableClickToClose, position}) => {
     const [style, setStyle] = useState({})
     const [state, setState] = useState({
         left: false,
-        right: false,
+        right: true,
     });
 
     useEffect(()=>{
@@ -33,6 +33,8 @@ const Drawer = ({anchor, content, disableClickToClose, position}) => {
         }
     };
 
+
+
     const Content = (anchor) => (
         <div
             role="presentation"
@@ -40,7 +42,7 @@ const Drawer = ({anchor, content, disableClickToClose, position}) => {
             onKeyDown={toggleDrawer(anchor, false, disableClickToClose)}
             style={style}
         >
-            {content}
+            {children}
         </div>
     );
 
@@ -50,7 +52,6 @@ const Drawer = ({anchor, content, disableClickToClose, position}) => {
         boxShadow: "none",
         padding: "8px",
         position: "fixed",
-        backgroundColor: "#f4f4f4",
     }
 
     return (
@@ -69,14 +70,18 @@ const Drawer = ({anchor, content, disableClickToClose, position}) => {
                         menu
                     </Icon>
                 </Button> : null}
-            <AppBar position="fixed" style={appBar}/>
+            <AppBar color={"secondary"} position="fixed" style={appBar}/>
             <SwipeableDrawer
-                hysteresis={0.10}
+                hysteresis={0.05}
                 anchor={anchor}
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
                 onOpen={toggleDrawer(anchor, true)}
                 disableAutoFocus={true}
+                disableDiscovery={true}
+                disableBackdropTransition={true}
+                minFlingVelocity={250}
+                swipeAreaWidth={40}
             >
                 {Content(anchor)}
             </SwipeableDrawer>

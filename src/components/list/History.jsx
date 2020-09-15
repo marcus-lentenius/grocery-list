@@ -43,7 +43,7 @@ const History = () => {
                     <Box position="relative" pt="9px">
                         <Icon mt="5px"
                               fontSize="small"
-                              color="disabled"
+                              color="primary"
                               onClick={() => {
                                   let category = categorizeItem(item.name, Data.reference_list)
                                   create(Data.items, {

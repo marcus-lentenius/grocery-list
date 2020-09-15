@@ -24,7 +24,7 @@ const SuggestedItem = ({item}) => {
                 <Grid item>
                     <Icon
                         fontSize="small"
-                        color="disabled"
+                        color="primary"
                         pt="5px"
                         height="100%"
                         onClick={() => {
