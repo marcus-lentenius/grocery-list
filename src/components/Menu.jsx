@@ -5,6 +5,7 @@ import Drawer from "./shared/Drawer";
 import Box from "@material-ui/core/Box";
 import Button from "./shared/style/Button";
 import {fireBase} from "../scripts";
+import {DrawerContent} from "./list";
 
 //fixme
 // stop marking when double click buttons
@@ -31,7 +32,8 @@ const Menu = () => {
         });
     }
 
-    const drawerContent = [
+    const DrawerContent = () => {
+        return (
         <Box key={"app_drawer_content"} height="85vh" width="200px" display="flex" alignItems="flex-end">
             <Box m="10px" position="absolute" top="0">
                 <Button onClick={logOut}>Log out</Button>
@@ -54,11 +56,14 @@ const Menu = () => {
                 </Link>
             </Box>
         </Box>
-    ]
-
+    )
+}
     return (
         <>
-            <Drawer anchor={'left'} content={drawerContent}/>
+            <Drawer anchor={'left'}>
+                <DrawerContent/>
+            </Drawer>
+
             <Redirect to='/list'/>
         </>
     );

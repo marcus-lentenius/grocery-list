@@ -5,7 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Icon from "@material-ui/core/Icon";
 
 
-const Drawer = ({anchor, content, disableClickToClose, position}) => {
+const Drawer = ({children, anchor, disableClickToClose, position}) => {
     const [style, setStyle] = useState({})
     const [state, setState] = useState({
         left: false,
@@ -33,6 +33,8 @@ const Drawer = ({anchor, content, disableClickToClose, position}) => {
         }
     };
 
+
+
     const Content = (anchor) => (
         <div
             role="presentation"
@@ -40,7 +42,7 @@ const Drawer = ({anchor, content, disableClickToClose, position}) => {
             onKeyDown={toggleDrawer(anchor, false, disableClickToClose)}
             style={style}
         >
-            {content}
+            {children}
         </div>
     );
 
