@@ -80,13 +80,12 @@ const History = () => {
                         );
                     } else {
                         list.push(
-                            <>
-                                <Text key={item.id + "_history_date"} mediumHeadline>
-                                    {date}
-                                </Text>
-
-                                <Item key={item.id + "_history"} item={item}/>
-                            </>
+                            <Text key={item.id + "_history_date"} mediumHeadline>
+                                {date}
+                            </Text>
+                        )
+                        list.push(
+                            <Item key={item.id + "_history"} item={item}/>
                         );
                     }
                 }
