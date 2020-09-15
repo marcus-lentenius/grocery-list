@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Create, Read} from "../../scripts/firebaseCRUD";
-import {fireBase} from "../../scripts/firebase";
-import {TodoistRead} from "../../scripts/todoistCRUD";
-import {CategorizeItem} from "../../scripts/categorizeItems";
-import {caseString} from "../../scripts/formatText";
-import {email, password} from "../../scripts/credentials";
 
-export const LoadItems = React.createContext(null);
+import {caseString, categorizeItem, create, email, fireBase, password, read, readFromTodoist} from "../../scripts";
+import LoadingScreen from "./LoadingScreen";
+
+export const ContextData = React.createContext(null);
+
+//todo split up?
 
 export const Loader = props => {
     const [isAuthenticated, setAuthenticated] = useState(false)
@@ -19,7 +18,7 @@ export const Loader = props => {
     const [recipes, setRecipes] = useState(null)
     const [history, setHistory] = useState(null)
 
-    useEffect(()=>{
+    useEffect(() => {
         if (!isAuthenticated) {
             fireBase.auth().signInWithEmailAndPassword(email, password)
                 .then(success => {
@@ -28,7 +27,7 @@ export const Loader = props => {
                 })
                 .catch((e) => console.error(e));
         }
-    },[isAuthenticated])
+    }, [isAuthenticated])
 
     useEffect(() => {
         if (!isLoaded && isAuthenticated) {
@@ -36,7 +35,6 @@ export const Loader = props => {
         }
     }, [isLoaded, isAuthenticated])
 
-    //todo reorder after need
     const fetchData = async () => {
         console.log('Preload initiated...')
         await fetchSortOrder();
@@ -58,56 +56,67 @@ export const Loader = props => {
             case 'items':
                 fetchItems();
                 break;
+            case 'referenceList':
+                fetchReferenceList();
+                break;
+            case 'recipes':
+                fetchRecipes();
+                break;
+            case 'history':
+                fetchHistory();
+                break;
+            default:
+                break;
         }
     }
 
     const fetchItems = async () => {
         console.log('Fetching items...')
-        const response = await Read('items');
+        const response = await read('items');
         setItems(response.items);
         console.log('Items fetched')
     }
     const fetchRecipes = async () => {
         console.log('Fetching recipes...')
-        const response = await Read('recipes');
+        const response = await read('recipes');
         setRecipes(response.recipes)
         console.log('Recipes fetched')
     }
 
     const fetchReferenceList = async () => {
         console.log('Fetching Reference list...')
-        const response = await Read('reference_list');
+        const response = await read('reference_list');
         setReferenceList(response)
         console.log('Reference list fetched')
     }
 
     const fetchSortOrder = async () => {
         console.log('Fetching Sorting order...')
-        const response = await Read('sorting_order');
+        const response = await read('sorting_order');
         setSortingOrder(response.coop)
         console.log('Sorting order fetched')
     }
     const fetchNewItems = async () => {
         console.log('Fetching New items...')
-        const response = await Read('new_items');
+        const response = await read('new_items');
         setNewItems(response.items);
         console.log('New items fetched')
     }
     const fetchHistory = async () => {
         console.log('Fetching History...')
-        const response = await Read('history');
+        const response = await read('history');
         setHistory(response.items);
         console.log('History fetched')
     }
 
-    // //todo refactor
     const importFromTodoist = async () => {
-        const todoistList = await TodoistRead();
-        const arr = todoistList.map(item => {
-            return {name: item.content, category: CategorizeItem(item.content, referenceList)}
+        const todoistList = await readFromTodoist();
+
+        const listOfItems = todoistList.map(item => {
+            return {name: item.content, category: categorizeItem(item.content, referenceList)}
         })
 
-        arr.forEach(newItem => {
+        listOfItems.forEach(newItem => {
             let exists = false
             items.forEach(item => {
                 if (item.name === newItem.name) {
@@ -116,39 +125,34 @@ export const Loader = props => {
             })
 
             if (exists === false) {
-                Create(items, {
+                create(items, {
                     name: caseString(newItem.name),
                     category: newItem.category,
                 }).catch((e) => console.error(e));
             }
             exists = false
         })
+
         await updateData('items')
         await updateData('newItems')
     }
 
     const state = {
         items: items,
-        //todo rename
         reference_list: referenceList,
         sorting_order: sortingOrder,
         new_items: newItems,
         recipes: recipes,
         history: history,
-        fetchItems: fetchItems.bind(this),
-        fetchReferenceList: fetchReferenceList.bind(this),
         importFromTodoist: importFromTodoist.bind(this),
-        fetchRecipes: fetchRecipes.bind(this),
         updateData: updateData.bind(this),
-        fetchHistory: fetchHistory.bind(this),
-        fetchNewItems: fetchNewItems.bind(this)
     }
 
     return (
         <>
-            {isLoaded ? <LoadItems.Provider value={state}>
+            {isLoaded ? <ContextData.Provider value={state}>
                 {props.children}
-            </LoadItems.Provider> : <p> loading </p>}
+            </ContextData.Provider> : <LoadingScreen/>}
         </>
     );
 };

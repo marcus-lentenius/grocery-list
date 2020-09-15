@@ -62,7 +62,7 @@ const confirmDeleteRecipe = `
     display: inline-flex;
 `
 
-export const Button = styled.div`
+const Button = styled.div`
 ${props =>
     props.decreaseAmount ? base + decreaseAmount :
     props.increaseAmount ? base + increaseAmount :
@@ -73,3 +73,5 @@ ${props =>
     props ? base : null
 }
 `
+
+export default Button

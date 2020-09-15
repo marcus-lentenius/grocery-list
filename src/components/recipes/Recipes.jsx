@@ -1,17 +1,12 @@
-import React, {useContext, useState} from "react";
-import Recipe from "./Recipe";
-import {LoadItems} from "../shared/DataLoader";
-import AddRecipe from "./AddRecipe";
-import Drawer from "../Drawer";
-import {Button} from "../shared/style/Button";
-import {DeleteRecipe} from "../../scripts/firebaseCRUD";
-import {Text} from "../shared/style/Text";
+import React, {useContext} from "react";
+
 import {Box} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import RecipeToDelete from "./RecipeToDelete";
+
+import {AddRecipe, Recipe, RecipeToDelete} from "./";
+import {Drawer, ContextData} from "../shared";
 
 const Recipes = () => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
 
     const DrawerContent = [
         <Box mx={1} width="350px" key={"recipe_drawer"}>

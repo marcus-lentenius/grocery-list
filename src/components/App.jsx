@@ -1,29 +1,8 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom";
-import {Text} from "./shared/style/Text";
-import Drawer from "./Drawer";
+import {Text} from "./shared";
+import Drawer from "./shared/Drawer";
 import Box from "@material-ui/core/Box";
-//tests
-// add item
-// add
-// amount
-// adds newItem
-// correct category
-//new items
-// delete
-// categorize
-//add recipe
-//name
-//ingredient & amount
-//edit name & amount & apply
-// add recipe
-//recipes
-//open & close(outside & button)
-// delete
-// add ingredient
-//import from todoist
-//adds items
-//adds "newItems"
 
 //fixme
 // stop marking when double click buttons
@@ -32,10 +11,13 @@ import Box from "@material-ui/core/Box";
 // clear items in todoist after import
 // add error mesages
 // seperate index export files
-// add 404
 // shorten onClick single line function
-
-// <Box height="100vh" display="flex" alignItems="flex-end">
+// check all component keys
+// tabindex in recipes drawer
+// fix key props in recipe drawer
+// clear new items and sort by date
+// limit amount of suggested items
+// loading screen
 
 export const App = () => {
     const drawerContent = [

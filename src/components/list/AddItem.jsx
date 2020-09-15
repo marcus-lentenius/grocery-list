@@ -1,18 +1,16 @@
 import React, {useContext, useRef, useState} from "react";
-import {Create} from "../../scripts/firebaseCRUD";
-import {CategorizeItem} from "../../scripts/categorizeItems";
-import {caseString} from "../../scripts/formatText";
-import {Input} from "../shared/style/Input";
-import {LoadItems} from "../shared/DataLoader";
+
 import Grid from "@material-ui/core/Grid";
-import {Button} from "../shared/style/Button";
+
+import {caseString, categorizeItem, create} from "../../scripts";
+import {Button, Input, ContextData} from "../shared";
 
 /**
  * Section for form to add new items to the list
  */
 
 const AddItem = () => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
     const [amount, setAmount] = useState(1)
     const newItem = useRef(); // <input> add item
 
@@ -20,8 +18,8 @@ const AddItem = () => {
         const item = newItem.current;
 
         if (item.value !== '') {
-            let category = CategorizeItem(item.value, Data.reference_list)
-            Create(Data.items, {
+            let category = categorizeItem(item.value, Data.reference_list)
+            create(Data.items, {
                 name: caseString(item.value),
                 category: category,
                 amount: amount
@@ -47,8 +45,7 @@ const AddItem = () => {
     return (
         <Grid container style={sticky} spacing={1}>
             <Grid item xs>
-                <Input addItem
-                       autoComplete="off"
+                <Input autoComplete="off"
                        ref={newItem}
                        onKeyPress={e => {
                            if (e.key === "Enter") {

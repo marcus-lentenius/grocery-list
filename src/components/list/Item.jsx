@@ -1,26 +1,43 @@
 import React, {useContext} from "react";
-import {CheckBox} from "../shared/style/CheckBox";
-import {Row} from "../shared/style/Row";
-import {CreateHistoryItem, Delete} from "../../scripts/firebaseCRUD";
-import {Text} from "../shared/style/Text";
-import {LoadItems} from "../shared/DataLoader";
+
+import Icon from "@material-ui/core/Icon";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+
+import {ContextData, Text} from "../shared";
+import {createHistoryItem, remove} from "../../scripts";
 
 const Item = ({item}) => {
-    const Data = useContext(LoadItems);
-
+    const Data = useContext(ContextData);
     return (
-        <Row groceryList>
-            <Text item>
-                {item.amount === 1 ? null : item.amount} {item.name}
-            </Text>
-            <CheckBox onClick={() => {
-                CreateHistoryItem(item)
-                Delete(item, 'items');
-                Data.fetchItems();
-                Data.fetchHistory();
-            }}/>
-        </Row>
-    )
+        <Box
+            borderColor="grey.200"
+            borderTop={1}
+            pl={2}>
+
+            <Grid container>
+                <Grid item xs>
+                    <Text item>
+                        {item.amount === 1 ? null : item.amount} {item.name}
+                    </Text>
+                </Grid>
+                <Grid item>
+                    <Icon
+                        fontSize={"large"}
+                        onClick={() => {
+                            createHistoryItem(item)
+                            remove(item, 'items');
+                            Data.updateData('items')
+                            Data.updateData('history')
+                            // Data.fetchItems();
+                            // Data.fetchHistory();
+                        }}>
+                        radio_button_unchecked_outlined
+                    </Icon>
+                </Grid>
+            </Grid>
+        </Box>
+    );
 }
 
 export default Item;

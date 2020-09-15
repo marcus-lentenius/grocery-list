@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const Select = styled.select`
+const Select = styled.select`
     border-radius: .25rem;
     border-color: #ababab;
     color: #6a6a6a;
@@ -9,3 +9,5 @@ export const Select = styled.select`
     width: 140px;
     font-size: 16px;
 `
+
+export default Select

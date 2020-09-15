@@ -1,15 +1,14 @@
 import React from "react";
-import {Row} from "../shared/style/Row";
-import {Input} from "../shared/style/Input";
-import Grid from "@material-ui/core/Grid";
-import {Button} from "../shared/style/Button";
 
-const AddIngredient = ({ingredientRef,amountRef,handleAddIngredient}) => (
+import Grid from "@material-ui/core/Grid";
+
+import {Button, Input} from "../shared";
+
+const AddIngredient = ({ingredientRef, amountRef, handleAddIngredient}) => (
     <>
         <Grid container spacing={1}>
             <Grid item xs>
-                <Input ingredient
-                       autoComplete="off"
+                <Input autoComplete="off"
                        ref={ingredientRef}
                        id={"ingredient"}
                        placeholder={"Ingredient"}

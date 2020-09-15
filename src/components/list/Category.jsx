@@ -1,21 +1,15 @@
 import React, {useContext, useState} from "react";
+
 import Item from "./Item";
-import {Text} from "../shared/style/Text";
-import {getId} from "../../scripts/idGenerator";
-import {LoadItems} from "../shared/DataLoader";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import {ExpandLess, ExpandMore} from "@material-ui/icons";
-import Collapse from "@material-ui/core/Collapse";
+import {ContextData, Text} from "../shared";
+import {getId} from "../../scripts";
 
 /**
  * Groups all items under respective category and function for hiding/showing each category
  */
 
 const Category = ({category}) => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
     const [showList, setShowList] = useState(true)
 
     const handleClick = () => {

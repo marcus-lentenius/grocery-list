@@ -1,15 +1,12 @@
-import {Text} from "../shared/style/Text";
 import React, {useContext, useEffect, useState} from "react";
-import {LoadItems} from "../shared/DataLoader";
+
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import {CheckBox} from "../shared/style/CheckBox";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Icon from "@material-ui/core/Icon";
-import {CategorizeItem} from "../../scripts/categorizeItems";
-import {Create, Delete} from "../../scripts/firebaseCRUD";
-import {caseString} from "../../scripts/formatText";
 import Box from "@material-ui/core/Box";
+
+import {ContextData, Text} from "../shared";
+import {caseString, categorizeItem, create, remove} from "../../scripts";
 
 const formatDate = (ms) => {
     const date = new Date(ms);
@@ -21,8 +18,8 @@ const formatDate = (ms) => {
     return day + "/" + month + "/" + year;
 }
 
-export const History = () => {
-    const Data = useContext(LoadItems);
+const History = () => {
+    const Data = useContext(ContextData);
     const [historyList, setHistoryList] = useState([])
 
     let date;
@@ -44,20 +41,22 @@ export const History = () => {
                 </Grid>
                 <Grid item>
                     <Box position="relative" pt="9px">
-                    <Icon mt="5px"
-                        fontSize="small"
-                        color="disabled"
-                        onClick={() => {
-                            let category = CategorizeItem(item.name, Data.reference_list)
-                            Create(Data.items, {
-                                name: caseString(item.name),
-                                category: category,
-                            })
-                            Delete(item, 'history')
-                            Data.fetchHistory()
-                            Data.fetchItems()
-                        }}
-                    >
+                        <Icon mt="5px"
+                              fontSize="small"
+                              color="disabled"
+                              onClick={() => {
+                                  let category = categorizeItem(item.name, Data.reference_list)
+                                  create(Data.items, {
+                                      name: caseString(item.name),
+                                      category: category,
+                                  })
+                                  remove(item, 'history');
+                                  Data.updateData('history');
+                                  Data.updateData('items');
+                                  // Data.fetchHistory()
+                                  // Data.fetchItems()
+                              }}
+                        >
                             check_circle_outline
                         </Icon>
                     </Box>
@@ -82,7 +81,7 @@ export const History = () => {
                     } else {
                         list.push(
                             <>
-                                <Text key={item.id + "_history_date"} historyDate>
+                                <Text key={item.id + "_history_date"} mediumHeadline>
                                     {date}
                                 </Text>
 
@@ -99,3 +98,5 @@ export const History = () => {
         list.map(item => item)
     )
 }
+
+export default History

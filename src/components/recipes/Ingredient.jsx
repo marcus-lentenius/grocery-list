@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Input} from "../shared/style/Input";
+
 import Grid from "@material-ui/core/Grid";
-import {Text} from "../shared/style/Text";
-import {caseString} from "../../scripts/formatText";
-import {Button} from "../shared/style/Button";
+
+import {Button, Input, Text} from "../shared";
+import {caseString} from "../../scripts";
 
 
 const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
@@ -31,8 +31,8 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
     }
 
     const handleDeleteIngredient = () => {
-        //todo oneline?
         let arr = []
+
         ingredients.forEach(ingredient => {
             if (ingredient !== thisIngredient) {
                 arr.push(ingredient)
@@ -45,8 +45,7 @@ const Ingredient = ({thisIngredient, ingredients, setIngredients}) => {
     const UpdateableIngredient = () => (
         <Grid container spacing={1}>
             <Grid item xs>
-                <Input addItem
-                       autoComplete="off"
+                <Input autoComplete="off"
                        ref={updateItem}
                        defaultValue={caseString(thisIngredient.name)}
                        onChange={(e) => thisIngredient.name = caseString(e.target.value)}/>

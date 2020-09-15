@@ -1,16 +1,15 @@
+import React, {useContext, useState} from "react";
+
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import {Text} from "../shared/style/Text";
 import Icon from "@material-ui/core/Icon";
-import {CategorizeItem} from "../../scripts/categorizeItems";
-import {Create} from "../../scripts/firebaseCRUD";
-import {caseString} from "../../scripts/formatText";
 import Divider from "@material-ui/core/Divider";
-import React, {useContext, useState} from "react";
-import {LoadItems} from "../shared/DataLoader";
+
+import {ContextData, Text} from "../shared";
+import {caseString, categorizeItem, create} from "../../scripts";
 
 const SuggestedItem = ({item}) => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
     const [addSuggestionIcon, setAddSuggestionIcon] = useState("add_circle_outline");
 
     return (
@@ -30,8 +29,8 @@ const SuggestedItem = ({item}) => {
                         height="100%"
                         onClick={() => {
                             setAddSuggestionIcon("check_circle_outline")
-                            let category = CategorizeItem(item.name, Data.reference_list)
-                            Create(Data.items, {
+                            let category = categorizeItem(item.name, Data.reference_list)
+                            create(Data.items, {
                                 name: caseString(item.name),
                                 category: category,
                             })

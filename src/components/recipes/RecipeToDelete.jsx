@@ -1,17 +1,18 @@
 import React, {useContext, useState} from "react";
-import {DeleteRecipe} from "../../scripts/firebaseCRUD";
+
 import Grid from "@material-ui/core/Grid";
-import {Text} from "../shared/style/Text";
-import {Button} from "../shared/style/Button";
-import {LoadItems} from "../shared/DataLoader";
+
+import {removeRecipe} from "../../scripts";
+import {Button, ContextData, Text} from "../shared";
 
 const RecipeToDelete = ({recipe}) => {
-    const Data = useContext(LoadItems);
+    const Data = useContext(ContextData);
     const [confirmDelete, setConfirmDelete] = useState(false);
 
     const handleDelete = (recipe) => {
-        DeleteRecipe(recipe, 'recipes')
-        Data.fetchRecipes();
+        removeRecipe(recipe, 'recipes')
+        // Data.fetchRecipes();
+        Data.updateData('recipes')
     }
 
     return (
@@ -22,7 +23,7 @@ const RecipeToDelete = ({recipe}) => {
             {confirmDelete ?
                 <>
                     <Grid item>
-                        <Button onClick={()=> handleDelete(recipe)}>
+                        <Button onClick={() => handleDelete(recipe)}>
                             Yes
                         </Button>
                     </Grid>
