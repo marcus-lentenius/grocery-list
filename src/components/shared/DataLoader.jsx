@@ -18,22 +18,27 @@ export const Loader = props => {
     const [recipes, setRecipes] = useState(null)
     const [history, setHistory] = useState(null)
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            fireBase.auth().signInWithEmailAndPassword(email, password)
-                .then(success => {
-                    setAuthenticated(true);
-                    console.log('authenticated')
-                })
-                .catch((e) => console.error(e));
-        }
-    }, [isAuthenticated])
+    // useEffect(() => {
+    //     if (!isAuthenticated) {
+    //         fireBase.auth().signInWithEmailAndPassword(email, password)
+    //             .then(success => {
+    //                 setAuthenticated(true);
+    //                 console.log('authenticated')
+    //             })
+    //             .catch((e) => console.error(e));
+    //     }
+    // }, [isAuthenticated])
 
+    // useEffect(() => {
+    //     if (!isLoaded && isAuthenticated) {
+    //         fetchData()
+    //     }
+    // }, [isLoaded, isAuthenticated])
     useEffect(() => {
-        if (!isLoaded && isAuthenticated) {
+        if (!isLoaded) {
             fetchData()
         }
-    }, [isLoaded, isAuthenticated])
+    }, [isLoaded])
 
     const fetchData = async () => {
         console.log('Preload initiated...')

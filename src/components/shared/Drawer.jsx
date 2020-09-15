@@ -77,7 +77,6 @@ const Drawer = ({anchor, content, disableClickToClose, position}) => {
                 onClose={toggleDrawer(anchor, false)}
                 onOpen={toggleDrawer(anchor, true)}
                 disableAutoFocus={true}
-                disableDiscovery={true}
             >
                 {Content(anchor)}
             </SwipeableDrawer>

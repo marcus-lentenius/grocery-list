@@ -1,4 +1,3 @@
-
 A private grocery list web app with so far a single purpose of simplifying a trip to the store.
 
 Primary function is to automatically sort the added items/products in the list after a reference list so they appear in the same manner the isles are placed in a store (with categories/isles and currently about 900 products).
@@ -53,7 +52,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can learn more in the [Create React Menu documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
@@ -65,7 +64,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/co
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
+### Making a Progressive Web Menu
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
